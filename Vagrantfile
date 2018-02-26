@@ -96,11 +96,7 @@ Vagrant.configure("2") do |config|
       #sudo npm install --save react-router
 
       # Redux
-      #sudo npm install --save redux
-      #sudo npm install --save react-redux
-      #sudo npm install --save normalizr
-      #sudo npm install --save redux-logger
-      #sudo npm install --save redux-thunk
+      #sudo npm install --save redux && sudo npm install --save react-redux && sudo npm install --save normalizr && sudo npm install --save redux-logger &&  sudo npm install --save redux-thunk
 
       # clean up
      sudo apt-get autoremove
