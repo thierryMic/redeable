@@ -1,10 +1,10 @@
-export default function postReducer(state={}, action) {
+export default function postReducer(state=[], action) {
 	switch (action.type) {
 
 		case "RECEIVE_POSTS": {
-			return {...state,
+			return [...state,
 					...action.posts
-			};
+			];
 		}
 
 		default: {
