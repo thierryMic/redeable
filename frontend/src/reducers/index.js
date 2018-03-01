@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
-import postReducer from './postReducer'
+import postsReducer from './postsReducer'
 import categoryReducer from './categoryReducer'
+import commentsReducer from './commentsReducer'
 
 export const allReducers = combineReducers (
   {
-    posts:postReducer,
-    categories:categoryReducer
+    posts:postsReducer,
+    categories:categoryReducer,
+    comments:commentsReducer,
   }
 )

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
-import { receiveCategories, filterCategories} from '../actions/actions'
+import { requestCategories, receiveCategories, filterCategories} from '../actions/actions'
 
 import { CategoryList } from '../components/CategoryList'
 
@@ -14,7 +14,10 @@ class CategoryContainer extends Component {
     * @description - trigger a request action
     */
     componentDidMount() {
-        this.props.fetchData("categories", receiveCategories)
+        const { categories, isFetching } = this.props
+        if (categories.length === 0 && !isFetching) {
+            this.props.fetchData("categories", requestCategories, receiveCategories)
+        }
     }
 
 
@@ -32,6 +35,7 @@ class CategoryContainer extends Component {
 
 function mapStateToProps (state) {
     return {
+        isFetching:state.categories.isFetching,
         categories:state.categories.categories,
         activeFilter:state.categories.activeFilter
     }
@@ -39,9 +43,10 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch)  {
     return {
+        requestCategories: () => dispatch(requestCategories()),
         receiveCategories: () => dispatch(receiveCategories()),
         filterCategories: (id) => dispatch(filterCategories(id)),
-        fetchData: (e, h) => dispatch(fetchData(e, h))
+        fetchData: (e, i, h) => dispatch(fetchData(e, i, h))
     }
 }
 

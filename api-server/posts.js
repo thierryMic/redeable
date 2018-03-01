@@ -24,6 +24,17 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     commentCount: 0
+  },
+  "6ni6ok3ym7mf1p33ln01": {
+    id: '6ni6ok3ym7mf1p33ln01',
+    timestamp: 1468479767190,
+    title: 'Revelation',
+    body: 'AAAYE IM the 3rd Revelation!!!',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: -5,
+    deleted: false,
+    commentCount: 0
   }
 }
 
