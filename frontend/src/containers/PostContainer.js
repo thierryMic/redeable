@@ -20,7 +20,7 @@ class PostContainer extends Component {
         const { postid } = this.props.match.params
         const { comments, fetchData, isFetching } = this.props
 
-        if (!comments[postid] && !isFetching) {
+        if (!comments[postid]) {
             fetchData(`posts/${postid}/comments`, requestComments(postid), receiveComments)
         }
     }

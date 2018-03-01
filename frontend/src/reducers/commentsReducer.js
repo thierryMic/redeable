@@ -1,15 +1,15 @@
-export default function commentsReducer(state={comments:{}, isFetching:false,}, action) {
+export default function commentsReducer(state={comments:{}, isFetching:{}}, action) {
 	switch (action.type) {
 
 		case "REQUEST_COMMENTS": {
 			return {comments: {...state.comments, [action.postId]:[]},
-					isFetching: true
+					isFetching: {...state.isFetching, [action.postId]:true}
 				}
 		}
 
 		case "RECEIVE_COMMENTS": {
 			return {comments: {...state.comments, ...action.comments},
-					isFetching: false
+					isFetching: {...state.isFetching, [action.parentId]:false}
 				}
 		}
 
