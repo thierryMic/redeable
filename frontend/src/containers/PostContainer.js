@@ -18,9 +18,9 @@ class PostContainer extends Component {
     */
     componentDidMount() {
         const { postid } = this.props.match.params
-        const { comments, fetchData, isFetching } = this.props
+        const { comments, fetchData } = this.props
 
-        if (!comments[postid]) {
+        if (!comments[postid] && !(comments[postid] && comments[postid].isFetching)) {
             fetchData(`posts/${postid}/comments`, requestComments(postid), receiveComments)
         }
     }
@@ -45,7 +45,6 @@ function mapStateToProps (state) {
     return {
         posts:state.posts.posts,
         comments:state.comments.comments,
-        isFetching:state.comments.isFetching,
     }
 }
 
