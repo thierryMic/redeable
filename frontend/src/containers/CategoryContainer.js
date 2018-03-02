@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import PropTypes from 'prop-types'
 import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
 import { requestCategories, receiveCategories, filterCategories} from '../actions/actions'
@@ -14,20 +14,24 @@ class CategoryContainer extends Component {
     * @description - trigger a request action
     */
     componentDidMount() {
-        const { categories, isFetching } = this.props
+        const { categories, isFetching, filterCategories, match } = this.props
         if (categories.length === 0 && !isFetching) {
             this.props.fetchData("categories", requestCategories, receiveCategories)
         }
+
+        filterCategories(match.params.category || "")
     }
 
 
-    render() {
-        const { categories, filterCategories, activeFilter } = this.props
+
+    render( ) {
+        const { categories, filterCategories, match } = this.props
 
         return (
             <CategoryList categories={categories}
+                          match={match}
                           filter={filterCategories}
-                          activeFilter={activeFilter}/>
+                          activeFilter={match.params.category || ""}/>
         )
     }
 }

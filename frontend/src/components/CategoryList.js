@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Category } from './Category'
+
 /**
 * @description Represents a category list
 */
 export const CategoryList = (props) => {
 
     const { categories, filter, activeFilter } = props
-
     return (
         <div>
             {categories.map( (c) => (

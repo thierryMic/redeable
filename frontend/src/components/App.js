@@ -1,6 +1,6 @@
 import '../styles/App.css'
 import React, { Component } from 'react'
-import {Route} from 'react-router-dom'
+import { Route, Redirect} from 'react-router-dom'
 import CategoryContainer from '../containers/CategoryContainer'
 import PostListContainer from '../containers/PostListContainer'
 import PostContainer from '../containers/PostContainer'
@@ -14,22 +14,21 @@ class App extends Component {
     componentDidMount() {
     }
 
-
     render() {
         return (
         <div className='App'>
 
-            <Route exact path='/' render={() => (
+
+
+            <Route exact path='/post/:postid' component={PostContainer}/>
+
+            <Route exact path='/:category?' render={( {match} ) => (
                 <div>
-                    <CategoryContainer />
+                    <CategoryContainer match={match}/>
                     <PostListContainer />
                 </div>
                 )}
             />
-
-            <Route exact path='/post/:postid' component={PostContainer}/>
-
-
 
         </div>
         )

@@ -8,7 +8,7 @@ body, .app {
   background: white;
 }
 .category-button {
-
+	margin: 10px;
 }
 .category-button-active {
 	font-weight: bold;
