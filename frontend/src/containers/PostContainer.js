@@ -52,7 +52,7 @@ function mapDispatchToProps(dispatch)  {
     return {
         requestComments: (id) => dispatch(requestComments(id)),
         receiveComments: () => dispatch(receiveComments()),
-        fetchData: (e, i, h) => dispatch(fetchData(e, i, h))
+        fetchData: (e, i, h) => dispatch(fetchData(e, i, h)),
     }
 }
 

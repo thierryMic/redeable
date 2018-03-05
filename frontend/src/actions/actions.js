@@ -8,6 +8,7 @@ export const FILTER_CATEGORIES = 'FILTER_CATEGORIES'
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const ACTIVATE_POST = 'ACTIVATE_POST'
+export const SORT_POSTS = 'SORT_POSTS'
 
 export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
@@ -43,6 +44,11 @@ export const receivePosts = (posts) => ({
 export const activatePost = (post) => ({
 	type: ACTIVATE_POST,
 	post,
+})
+
+export const sortPosts = (key) => ({
+	type: SORT_POSTS,
+	key
 })
 
 

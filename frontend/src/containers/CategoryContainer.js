@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { requestCategories, receiveCategories, filterCategories} from '../actions/actions'
 
 import { CategoryList } from '../components/CategoryList'
-
+import { withRouter } from 'react-router-dom'
 
 class CategoryContainer extends Component {
 
@@ -20,6 +20,13 @@ class CategoryContainer extends Component {
         }
 
         filterCategories(match.params.category || "")
+
+        window.onpopstate = ()=> {
+            console.log("Match  :", match)
+            console.log("History:", this.props.history)
+            filterCategories(match.params.category || "")
+            }
+
     }
 
 
@@ -55,5 +62,5 @@ function mapDispatchToProps(dispatch)  {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategoryContainer))
 

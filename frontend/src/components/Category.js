@@ -16,7 +16,7 @@ export const Category = (props) => {
             return(
                 <button className={active ? 'category-button-active' : 'category-button'}
                         onClick={() => {
-                            history.push(active ? '/' : `/${category.name}`)
+                            history.push(active ? '' : `/${category.name}`)
                             filter(category.name)
                         }}
                 >

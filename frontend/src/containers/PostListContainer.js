@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 
 import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
-import { requestPosts, receivePosts } from '../actions/actions'
+import { requestPosts, receivePosts, sortPosts } from '../actions/actions'
 import { PostList } from '../components/PostList'
-import { withRouter } from 'react-router-dom'
+
 
 class PostListContainer extends Component {
 
@@ -20,10 +20,11 @@ class PostListContainer extends Component {
 
 
     render() {
-        const { posts, active} = this.props
+        const { posts, active, sortPosts } = this.props
         return (
             <PostList
                 posts={active === '' ? posts : posts.filter( p => p.category === active)}
+                sortPosts={sortPosts}
             />
 
 
@@ -44,10 +45,11 @@ function mapDispatchToProps(dispatch)  {
     return {
         requestPosts: () => dispatch(requestPosts()),
         receivePosts: () => dispatch(receivePosts()),
-        fetchData: (e, i, h) => dispatch(fetchData(e, i, h))
+        fetchData: (e, i, h) => dispatch(fetchData(e, i, h)),
+        sortPosts: (k) => dispatch(sortPosts(k))
     }
 }
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostListContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(PostListContainer)
 

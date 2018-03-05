@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link }  from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 /**
 * @description Represents a category list
 */
 export const PostList = (props) => {
 
-    const { posts } = props
+    const { posts, sortPosts } = props
 
     return (
         <div>
@@ -19,6 +20,20 @@ export const PostList = (props) => {
                  </li>
             ))}
 
+
+            <button className=''
+                    // onClick={() => {sortPosts("timestamp")}}
+                    onClick={() => {sortPosts("title")}}
+            >
+                sort
+            </button>
+
         </div>
     )
+}
+
+
+PostList.propTypes = {
+    posts: PropTypes.array.isRequired,
+    sortPosts: PropTypes.func.isRequired
 }
