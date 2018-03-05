@@ -32,7 +32,7 @@ const defaultData = {
     body: 'AAAYE IM the 3rd Revelation!!!',
     author: 'thingone',
     category: 'redux',
-    voteScore: -5,
+    voteScore: 10,
     deleted: false,
     commentCount: 0
   }

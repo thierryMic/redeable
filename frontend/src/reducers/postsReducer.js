@@ -17,8 +17,7 @@ export default function postsReducer(state={posts:[], isFetching:false}, action)
 
 
 		case "SORT_POSTS": {
-			// const sorted = [...state.posts.sort( (a,b) => ( a[action.key] -  b[action.key]))]
-			const sorted = [...state.posts.sort( (a,b) => ( a[action.key] >  b[action.key]))]
+			const sorted = [...state.posts.sort( (a,b) => ( a[action.key] <  b[action.key]))]
 			return {posts:sorted}
 		}
 

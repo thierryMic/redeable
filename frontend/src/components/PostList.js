@@ -1,33 +1,27 @@
 import React from 'react'
 import { Link }  from 'react-router-dom'
 import PropTypes from 'prop-types'
-
+import { Post } from './Post'
 /**
 * @description Represents a category list
 */
 export const PostList = (props) => {
 
-    const { posts, sortPosts } = props
+    const { posts, sortPosts, allowSort } = props
 
     return (
         <div>
-            {posts.map ( (p) => (
-                <li key={p.id}>
-                	<Link className='post-title' to= {`/post/${p.id}`}>{p.title}</Link>
-                	<p className='post-details'>{p.author}</p>
-                	<p className='post-details'>{p.commentCount}</p>
-                	<p className='post-details'>{p.voteScore}</p>
-                 </li>
-            ))}
+            {allowSort && (
+                <label className=''> Sort by:
+                    <select className='' onChange = {(e) => {sortPosts(e.target.value)}}>
+                        <option value="voteScore">Votes</option>
+                        <option value="commentCount">Comments</option>
+                        <option value="timestamp">Date</option>
+                    </select>
+                </label>
+            )}
 
-
-            <button className=''
-                    // onClick={() => {sortPosts("timestamp")}}
-                    onClick={() => {sortPosts("title")}}
-            >
-                sort
-            </button>
-
+            {posts.map ( (p) => (<Post key={p.id} post={p} />))}
         </div>
     )
 }
@@ -35,5 +29,6 @@ export const PostList = (props) => {
 
 PostList.propTypes = {
     posts: PropTypes.array.isRequired,
-    sortPosts: PropTypes.func.isRequired
+    allowSort: PropTypes.bool.isRequired,
+    sortPosts: PropTypes.func,
 }

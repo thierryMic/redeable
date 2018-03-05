@@ -25,6 +25,7 @@ class PostListContainer extends Component {
             <PostList
                 posts={active === '' ? posts : posts.filter( p => p.category === active)}
                 sortPosts={sortPosts}
+                allowSort={true}
             />
 
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link }  from 'react-router-dom'
 
 /**
 * @description Represents a category list
@@ -8,7 +9,8 @@ export const Post = (props) => {
     const { post } = props
     return (
         <div>
-        	<p className='post-title'>{post.title}</p>
+            <Link className='post-title' to= {`/post/${post.id}`}>{post.title}</Link>
+
         	<p className='post-body'>{post.body}</p>
         	<p className='post-details'>{post.author}</p>
         	<p className='post-details'>{post.commentCount}</p>

@@ -20,7 +20,7 @@ const defaultData = {
     timestamp: 1469479767190,
     body: 'Comments. Are. Cool.',
     author: 'thingone',
-    voteScore: -5,
+    voteScore: 3,
     deleted: false,
     parentDeleted: false
   },
