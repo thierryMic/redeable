@@ -7,31 +7,36 @@ import { requestCategories, receiveCategories, filterCategories} from '../action
 import { CategoryList } from '../components/CategoryList'
 import { withRouter } from 'react-router-dom'
 
+import { matchPath } from 'react-router'
+
 class CategoryContainer extends Component {
 
+
+    getCategoryFromUrl = (url) => {
+        const match = matchPath(url, {path: '/:category', exact: true, strict: false})
+        return match === null ? "" : match.params.category
+    }
 
     /**
     * @description - trigger a request action
     */
     componentDidMount() {
-        const { categories, isFetching, filterCategories, match } = this.props
+        const { categories, isFetching, filterCategories, match, history } = this.props
         if (categories.length === 0 && !isFetching) {
             this.props.fetchData("categories", requestCategories, receiveCategories)
         }
 
         filterCategories(match.params.category || "")
 
-        window.onpopstate = ()=> {
-            console.log("Match  :", match)
-            console.log("History:", this.props.history)
-            filterCategories(match.params.category || "")
+        window.onpopstate = () => {
+            filterCategories(this.getCategoryFromUrl(history.location.pathname))
             }
 
     }
 
 
 
-    render( ) {
+    render() {
         const { categories, filterCategories, match } = this.props
 
         return (
