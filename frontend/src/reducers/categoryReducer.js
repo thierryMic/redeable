@@ -16,9 +16,9 @@ export default function categoryReducer(state={categories:[], isFetching:false, 
 
 		case "FILTER_CATEGORIES": {
 			const newFilter = action.id==='' ? 'All' : action.id
-			return {...state,
-					activeFilter:newFilter
-				};
+			if (state.activeFilter !== newFilter) {
+				return {...state, activeFilter:newFilter};
+				}
 		}
 
 		default: {
