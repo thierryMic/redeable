@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom'
 import CategoryContainer from '../containers/CategoryContainer'
 import PostListContainer from '../containers/PostListContainer'
 import PostContainer from '../containers/PostContainer'
+import EditPostContainer from '../containers/EditPostContainer'
+import { withRouter } from 'react-router-dom'
 
 class App extends Component {
 
@@ -17,6 +19,8 @@ class App extends Component {
     render() {
         return (
         <div className='App'>
+
+            <EditPostContainer />
 
             <Route exact path='/:category/:postid' render={( {match} ) => (
                 <div>
@@ -33,12 +37,24 @@ class App extends Component {
                 </div>
                 )}
             />
-
         </div>
         )
     }
 }
 
+// function mapStateToProps (state) {
+//     return {
+//     }
 
+// }
+
+// function mapDispatchToProps(dispatch)  {
+//     return {
+//         editPostOn: () => dispatch(editPostOn()),
+//     }
+// }
+
+
+
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
 export default App
-

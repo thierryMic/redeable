@@ -14,6 +14,8 @@ export const REFRESH_POSTS = 'REFRESH_POSTS'
 export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 
+export const OPEN_EDIT_POST = 'OPEN_EDIT_POST'
+
 export const requestCategories = () => ({
   type: REQUEST_CATEGORIES,
 })
@@ -68,6 +70,12 @@ export const sortPosts = (key) => ({
 
 export const refreshPosts = () => ({
 	type: REFRESH_POSTS,
+})
+
+
+export const openEditPost = (open) => ({
+	type: OPEN_EDIT_POST,
+	open
 })
 
 
