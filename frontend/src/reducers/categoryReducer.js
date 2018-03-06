@@ -1,4 +1,4 @@
-export default function categoryReducer(state={categories:[], isFetching:false, activeFilter:''}, action) {
+export default function categoryReducer(state={categories:[], isFetching:false, activeFilter:'All'}, action) {
 	switch (action.type) {
 
 		case "REQUEST_CATEGORIES": {
@@ -9,13 +9,13 @@ export default function categoryReducer(state={categories:[], isFetching:false, 
 
 		case "RECEIVE_CATEGORIES": {
 			return {...state,
-					categories:[...action.categories],
+					categories:[{name: 'All', path: 'All'}, ...action.categories],
 					isFetching:false
 				}
 		}
 
 		case "FILTER_CATEGORIES": {
-			const newFilter = state.activeFilter===action.id ? '' : action.id
+			const newFilter = action.id==='' ? 'All' : action.id
 			return {...state,
 					activeFilter:newFilter
 				};

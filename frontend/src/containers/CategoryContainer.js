@@ -41,7 +41,7 @@ class CategoryContainer extends Component {
 
 
     render() {
-        const { categories, filterCategories, match } = this.props
+        const { categories, filterCategories, match, activeFilter } = this.props
 
         return (
             <CategoryList categories={categories}

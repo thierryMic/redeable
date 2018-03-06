@@ -23,7 +23,7 @@ class PostListContainer extends Component {
         const { posts, active, sortPosts } = this.props
         return (
             <PostList
-                posts={active === '' ? posts : posts.filter( p => p.category === active)}
+                posts={active === 'All' ? posts : posts.filter( p => p.category === active)}
                 sortPosts={sortPosts}
                 allowSort={true}
             />

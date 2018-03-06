@@ -18,9 +18,13 @@ class App extends Component {
         return (
         <div className='App'>
 
-
-
-            <Route exact path='/:category/:postid' component={PostContainer}/>
+            <Route exact path='/:category/:postid' render={( {match} ) => (
+                <div>
+                    <CategoryContainer match={match}/>
+                    <PostContainer match={match} />
+                </div>
+                )}
+            />
 
             <Route exact path='/:category?' render={( {match} ) => (
                 <div>
