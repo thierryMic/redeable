@@ -9,6 +9,7 @@ export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const ACTIVATE_POST = 'ACTIVATE_POST'
 export const SORT_POSTS = 'SORT_POSTS'
+export const REFRESH_POSTS = 'REFRESH_POSTS'
 
 export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
@@ -35,20 +36,38 @@ export const requestPosts = () => ({
 })
 
 
-export const receivePosts = (posts) => ({
-	type: RECEIVE_POSTS,
-	posts,
-})
+export const receivePosts = (posts) => {
+	if (!Array.isArray(posts)) {
+		posts = [posts]
+	}
+	return {
+		type: RECEIVE_POSTS,
+		posts,
+	}
+}
 
+
+export function receiveAllPosts(posts) {
+	return function(dispatch) {
+		dispatch(receivePosts(posts))
+		dispatch(refreshPosts())
+	}
+}
 
 export const activatePost = (post) => ({
 	type: ACTIVATE_POST,
 	post,
 })
 
+
 export const sortPosts = (key) => ({
 	type: SORT_POSTS,
 	key
+})
+
+
+export const refreshPosts = () => ({
+	type: REFRESH_POSTS,
 })
 
 
@@ -68,6 +87,7 @@ export const receiveComments = (commentsArray) => {
 			parentId
 		}
 }
+
 
 
 export function fetchData(endpoint, initiator, handler) {

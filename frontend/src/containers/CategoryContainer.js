@@ -21,17 +21,21 @@ class CategoryContainer extends Component {
     * @description - trigger a request action
     */
     componentDidMount() {
-        const { categories, isFetching, filterCategories, match, history } = this.props
+        const {categories, isFetching, filterCategories, match, history, activeFilter} = this.props
         if (categories.length === 0 && !isFetching) {
             this.props.fetchData("categories", requestCategories, receiveCategories)
+            filterCategories(match.params.category || "")
         }
 
-        filterCategories(match.params.category || "")
-
         window.onpopstate = () => {
-            filterCategories(this.getCategoryFromUrl(history.location.pathname))
-            }
+            const newFilter = this.getCategoryFromUrl(history.location.pathname)
+            newFilter != this.props.activeFilter ? filterCategories(newFilter) : null
+        }
+    }
 
+
+    componentWillUnmount () {
+        window.onpopstate = () => {}
     }
 
 

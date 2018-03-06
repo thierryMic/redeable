@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
-import { requestPosts, receivePosts, sortPosts } from '../actions/actions'
+import { requestPosts, receiveAllPosts, sortPosts } from '../actions/actions'
 import { PostList } from '../components/PostList'
 
 
@@ -12,9 +12,9 @@ class PostListContainer extends Component {
     * @description - trigger a request action
     */
     componentDidMount() {
-        const { posts, isFetching } = this.props
-        if (posts.length === 0 && !isFetching) {
-            this.props.fetchData("posts", requestPosts, receivePosts)
+        const { posts, isFetching, fresh } = this.props
+        if (!fresh && !isFetching) {
+            this.props.fetchData("posts", requestPosts, receiveAllPosts)
         }
     }
 
@@ -38,16 +38,17 @@ function mapStateToProps (state) {
     return {
         isFetching:state.posts.isFetching,
         posts:state.posts.posts,
-        active:state.categories.activeFilter
+        active:state.categories.activeFilter,
+        fresh:state.posts.fresh
     }
 }
 
 function mapDispatchToProps(dispatch)  {
     return {
-        requestPosts: () => dispatch(requestPosts()),
-        receivePosts: () => dispatch(receivePosts()),
         fetchData: (e, i, h) => dispatch(fetchData(e, i, h)),
-        sortPosts: (k) => dispatch(sortPosts(k))
+        requestPosts: () => dispatch(requestPosts()),
+        receivePosts: () => dispatch(receiveAllPosts()),
+        sortPosts: (k) => dispatch(sortPosts(k)),
     }
 }
 

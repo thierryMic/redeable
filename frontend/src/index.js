@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-// import dotenv from 'dotenv'
 import { BrowserRouter } from 'react-router-dom';
 
 import logger from 'redux-logger'

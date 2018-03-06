@@ -1,4 +1,4 @@
-export default function postsReducer(state={posts:[], isFetching:false}, action) {
+export default function postsReducer(state={posts:[], isFetching:false, fresh:false}, action) {
 	switch (action.type) {
 
 		case "REQUEST_POSTS": {
@@ -10,15 +10,19 @@ export default function postsReducer(state={posts:[], isFetching:false}, action)
 
 		case "RECEIVE_POSTS": {
 			return {...state,
-					posts:[...action.posts],
+					posts:sort([...action.posts], process.env.REACT_APP_DEFAULT_SORT),
 					isFetching:false
 				}
 		}
 
 
 		case "SORT_POSTS": {
-			const sorted = [...state.posts.sort( (a,b) => ( a[action.key] <  b[action.key]))]
-			return {posts:sorted}
+			return {posts:sort(state.posts, action.key)}
+		}
+
+
+		case "REFRESH_POSTS": {
+			return {...state, fresh:true}
 		}
 
 
@@ -27,3 +31,6 @@ export default function postsReducer(state={posts:[], isFetching:false}, action)
 		}
 	}
 }
+
+
+const sort = (array, key) => [...array.sort( (a,b) => ( a[key] <  b[key]))]

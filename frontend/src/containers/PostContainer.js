@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Post } from '../components/Post'
 import PropTypes from 'prop-types'
 import { fetchData } from '../actions/actions'
-import { requestComments, receiveComments, sortPosts} from '../actions/actions'
+import { requestPosts, receivePosts, requestComments, receiveComments, sortPosts} from '../actions/actions'
 import { connect } from 'react-redux'
 import { PostList } from '../components/PostList'
 
@@ -16,9 +16,15 @@ class PostContainer extends Component {
     /**
     * @description - trigger a request comments
     */
-    componentDidMount() {
+    componentWillMount() {
         const { postid } = this.props.match.params
-        const { comments, fetchData } = this.props
+        const { posts, comments, fetchData } = this.props
+
+        const post = posts.find(p => p.id === postid)
+
+        if (post == null) {
+            fetchData(`posts/${postid}`, requestPosts, receivePosts)
+        }
 
         if (!comments[postid] && !(comments[postid] && comments[postid].isFetching)) {
             fetchData(`posts/${postid}/comments`, requestComments(postid), receiveComments)
@@ -28,13 +34,13 @@ class PostContainer extends Component {
     render() {
 
         const {posts, comments} = this.props
-        const postId = this.props.match.params.postid
+        const postid = this.props.match.params.postid
+        const post = posts.find(p => p.id === postid)
 
         return (
             <div>
-                <Post post={posts.find(p => p.id === postId)}/>
-                {comments[postId] && <PostList posts={comments[postId]} allowSort={false} />}
-
+                {post && <Post post={post}/>}
+                {post && comments[postid] && <PostList posts={comments[postid]} allowSort={false} />}
             </div>
         )
     }
@@ -51,6 +57,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch)  {
     return {
+        requestPosts: () => dispatch(requestPosts()),
+        receivePosts: () => dispatch(receivePosts()),
         requestComments: (id) => dispatch(requestComments(id)),
         receiveComments: () => dispatch(receiveComments()),
         fetchData: (e, i, h) => dispatch(fetchData(e, i, h)),
