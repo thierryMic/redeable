@@ -5,7 +5,7 @@ import CategoryContainer from '../containers/CategoryContainer'
 import PostListContainer from '../containers/PostListContainer'
 import PostContainer from '../containers/PostContainer'
 import EditPostContainer from '../containers/EditPostContainer'
-import { withRouter } from 'react-router-dom'
+
 
 class App extends Component {
 
@@ -42,19 +42,4 @@ class App extends Component {
     }
 }
 
-// function mapStateToProps (state) {
-//     return {
-//     }
-
-// }
-
-// function mapDispatchToProps(dispatch)  {
-//     return {
-//         editPostOn: () => dispatch(editPostOn()),
-//     }
-// }
-
-
-
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
 export default App

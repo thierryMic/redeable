@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
 import { requestPosts, receiveAllPosts, sortPosts } from '../actions/actions'
@@ -12,7 +11,7 @@ class PostListContainer extends Component {
     * @description - trigger a request action
     */
     componentDidMount() {
-        const { posts, isFetching, fresh } = this.props
+        const { isFetching, fresh } = this.props
         if (!fresh && !isFetching) {
             this.props.fetchData("posts", requestPosts, receiveAllPosts)
         }

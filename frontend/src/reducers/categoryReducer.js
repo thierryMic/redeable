@@ -19,6 +19,7 @@ export default function categoryReducer(state={categories:[], isFetching:false, 
 			if (state.activeFilter !== newFilter) {
 				return {...state, activeFilter:newFilter};
 				}
+			return state;
 		}
 
 		default: {

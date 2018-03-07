@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
 import { requestCategories, receiveCategories, filterCategories} from '../actions/actions'
@@ -21,15 +21,17 @@ class CategoryContainer extends Component {
     * @description - trigger a request action
     */
     componentDidMount() {
-        const {categories, isFetching, filterCategories, match, history, activeFilter} = this.props
+        const { categories, isFetching, filterCategories, match, history, fetchData } = this.props
         if (categories.length === 0 && !isFetching) {
-            this.props.fetchData("categories", requestCategories, receiveCategories)
+            fetchData("categories", requestCategories, receiveCategories)
             filterCategories(match.params.category || "")
         }
 
         window.onpopstate = () => {
             const newFilter = this.getCategoryFromUrl(history.location.pathname)
-            newFilter != this.props.activeFilter ? filterCategories(newFilter) : null
+            if (newFilter !== this.props.activeFilter ) {
+                filterCategories(newFilter)
+            }
         }
     }
 
@@ -41,7 +43,7 @@ class CategoryContainer extends Component {
 
 
     render() {
-        const { categories, filterCategories, match, activeFilter } = this.props
+        const { categories, filterCategories, match } = this.props
 
         return (
             <CategoryList categories={categories}

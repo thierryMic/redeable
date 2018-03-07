@@ -15,6 +15,7 @@ export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 
 export const OPEN_EDIT_POST = 'OPEN_EDIT_POST'
+export const SAVE_POST = 'SAVE_POST'
 
 export const requestCategories = () => ({
   type: REQUEST_CATEGORIES,
@@ -78,6 +79,11 @@ export const openEditPost = (open) => ({
 	open
 })
 
+export const savePost = (post) => ({
+	type: SAVE_POST,
+	post
+})
+
 
 export const requestComments = (postId) => () => ({
   type: REQUEST_COMMENTS,
@@ -97,11 +103,13 @@ export const receiveComments = (commentsArray) => {
 }
 
 
-
-export function fetchData(endpoint, initiator, handler) {
+export function fetchData(endpoint, initiator, handler, options={method:'GET'}) {
 	return function(dispatch) {
 		dispatch(initiator())
-		return fetch(`${url}/${endpoint}`, headers)
+		return fetch(`${url}/${endpoint}`, {
+						...headers,
+					    ...options
+						})
 			.then(response => response.json())
 			.then(json => dispatch(handler(json)))
 			.catch(error => {
