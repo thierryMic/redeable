@@ -10,19 +10,23 @@ var UUID = require('uuid-js');
 
 
 const handleSubmit = (e, props) => {
+    const { reqSavePost, recSavePost } = props
+
     e.preventDefault()
+
     let post = serializeForm(e.target, { hash: true, empty:true})
     post.id = UUID.create().hex
     post.timestamp = Date.now()
     post.author ='default'
     post = JSON.stringify(post)
-    props.fetchData('posts', props.savePost, props.savePost, {method:'POST', body:post})
+
+    props.fetchData('posts', reqSavePost, recSavePost, {method:'POST', body:post})
 }
 
 
 export const EditPost = (props) => {
 
-    const { categories, isOpen, openEditPost, savePost} = props
+    const { categories, isOpen, openEditPost} = props
     Modal.setAppElement('#root');
     return (
         <Modal isOpen={isOpen}>
@@ -49,5 +53,6 @@ EditPost.propTypes = {
 	categories: PropTypes.array.isRequired,
 	isOpen: PropTypes.bool.isRequired,
 	openEditPost: PropTypes.func.isRequired,
-	savePost: PropTypes.func.isRequired,
+	reqSavePost: PropTypes.func.isRequired,
+    recSavePost: PropTypes.func.isRequired,
 }

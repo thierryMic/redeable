@@ -5,10 +5,6 @@ export default function appReducer(state={editPostOpen:false}, action) {
 			return {editPostOpen:action.open}
 		}
 
-		case "SAVE_POST": {
-			return {...state}
-		}
-
 		default: {
 			return state;
 		}

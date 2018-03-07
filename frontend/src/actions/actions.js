@@ -15,7 +15,8 @@ export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 
 export const OPEN_EDIT_POST = 'OPEN_EDIT_POST'
-export const SAVE_POST = 'SAVE_POST'
+export const REQ_SAVE_POST = 'REQ_SAVE_POST'
+export const REC_SAVE_POST = 'REC_SAVE_POST'
 
 export const requestCategories = () => ({
   type: REQUEST_CATEGORIES,
@@ -79,8 +80,14 @@ export const openEditPost = (open) => ({
 	open
 })
 
-export const savePost = (post) => ({
-	type: SAVE_POST,
+
+export const reqSavePost = () => () => ({
+	type: REQ_SAVE_POST,
+})
+
+
+export const recSavePost = (post) => () => ({
+	type: REC_SAVE_POST,
 	post
 })
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { EditPost } from '../components/EditPost'
-import { openEditPost, savePost, fetchData } from '../actions/actions'
+import { openEditPost, reqSavePost, recSavePost, fetchData } from '../actions/actions'
 
 class EditPostContainer extends Component {
 
@@ -17,13 +17,14 @@ class EditPostContainer extends Component {
     }
 
     render() {
-        const { categories, openEditPost, isOpen, savePost, fetchData } = this.props
+        const { categories, openEditPost, isOpen, reqSavePost, recSavePost, fetchData } = this.props
         return (
             <div>
                 <button className='' onClick={() => {openEditPost(true)}}>New post</button>
                 <EditPost isOpen={isOpen}
                           openEditPost={openEditPost}
-                          savePost={savePost}
+                          reqSavePost={reqSavePost}
+                          recSavePost={recSavePost}
                           fetchData={fetchData}
                           categories={categories}
                 />
@@ -44,7 +45,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps(dispatch)  {
     return {
         openEditPost: (o) => dispatch(openEditPost(o)),
-        savePost: (p) => dispatch(savePost(p)),
+        reqSavePost: () => dispatch(reqSavePost()),
+        recSavePost: (p) => dispatch(recSavePost(p)),
         fetchData: (e, i, h, m) => dispatch(fetchData(e, i, h, m))
     }
 }
