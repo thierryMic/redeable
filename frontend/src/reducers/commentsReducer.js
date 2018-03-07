@@ -13,6 +13,19 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 				}
 		}
 
+
+		case "REC_COMMENT_VOTE": {
+			const {payload} = action
+			const index = state.comments[payload.parentId].findIndex( p => p.id === payload.id)
+			const newComments = [...state.comments[payload.parentId]]
+
+			newComments[index].voteScore = payload.voteScore
+			return {...state,
+					comments:{...state.comments, [payload.parentID]:newComments}
+				}
+		}
+
+
 		default: {
 			return state;
 		}

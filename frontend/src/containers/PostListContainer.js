@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
-import { requestPosts, receiveAllPosts, sortPosts } from '../actions/actions'
+import { requestPosts, receiveAllPosts, sortPosts, reqVote, recVote } from '../actions/actions'
 import { PostList } from '../components/PostList'
 
 
@@ -19,12 +19,15 @@ class PostListContainer extends Component {
 
 
     render() {
-        const { posts, active, sortPosts } = this.props
+        const { posts, active, sortPosts, fetchData, reqVote, recVote } = this.props
         return (
             <PostList
                 posts={active === 'All' ? posts : posts.filter( p => p.category === active)}
                 sortPosts={sortPosts}
                 allowSort={true}
+                fetchData={fetchData}
+                reqVote={reqVote}
+                recVote={recVote}
             />
 
 
@@ -44,10 +47,12 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch)  {
     return {
-        fetchData: (e, i, h) => dispatch(fetchData(e, i, h)),
+        fetchData: (e, i, h, m) => dispatch(fetchData(e, i, h, m)),
         requestPosts: () => dispatch(requestPosts()),
         receivePosts: () => dispatch(receiveAllPosts()),
         sortPosts: (k) => dispatch(sortPosts(k)),
+        reqVote: () => dispatch(reqVote()),
+        recVote: (p) => dispatch(recVote(p)),
     }
 }
 

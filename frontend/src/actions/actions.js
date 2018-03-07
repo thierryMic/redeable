@@ -18,6 +18,11 @@ export const OPEN_EDIT_POST = 'OPEN_EDIT_POST'
 export const REQ_SAVE_POST = 'REQ_SAVE_POST'
 export const REC_SAVE_POST = 'REC_SAVE_POST'
 
+export const REQ_VOTE = 'REQ_VOTE'
+export const REC_POST_VOTE = 'REC_POST_VOTE'
+export const REC_COMMENT_VOTE = 'REC_COMMENT_VOTE'
+
+
 export const requestCategories = () => ({
   type: REQUEST_CATEGORIES,
 })
@@ -91,6 +96,16 @@ export const recSavePost = (post) => () => ({
 	post
 })
 
+
+export const reqVote = () => () => ({
+  type: REQ_VOTE,
+})
+
+
+export const recVote = (payload) => () => ({
+  type: payload.parentId ? REC_COMMENT_VOTE : REC_POST_VOTE,
+  payload
+})
 
 export const requestComments = (postId) => () => ({
   type: REQUEST_COMMENTS,

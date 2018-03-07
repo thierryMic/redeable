@@ -17,7 +17,8 @@ export default function postsReducer(state={posts:[], isFetching:false, fresh:fa
 
 
 		case "SORT_POSTS": {
-			return {posts:sort(state.posts, action.key),
+			return {...state,
+					posts:sort(state.posts, action.key),
 					sortKey:action.key}
 		}
 
@@ -28,7 +29,17 @@ export default function postsReducer(state={posts:[], isFetching:false, fresh:fa
 
 
 		case "REC_SAVE_POST": {
-			return {posts:sort([...state.posts, action.post], state.sortKey)}
+			return {...state,
+					posts:sort([...state.posts, action.post], state.sortKey)}
+		}
+
+
+		case "REC_POST_VOTE": {
+			const index = state.posts.findIndex( p => p.id === action.payload.id)
+			const newPosts = [...state.posts]
+
+			newPosts[index].voteScore = action.payload.voteScore
+			return {...state, posts:newPosts}
 		}
 
 
