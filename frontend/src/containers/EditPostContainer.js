@@ -21,13 +21,6 @@ class EditPostContainer extends Component {
         editType: PropTypes.string
     }
 
-    /**
-    * @description - trigger a request comments
-    */
-    componentWillMount() {
-    }
-
-
     handleSubmit = (e) => {
         const { reqSavePost, recSavePost, post, editType, fetchData, match} = this.props
         let url = 'posts'

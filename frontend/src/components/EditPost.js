@@ -13,7 +13,8 @@ export const EditPost = (props) => {
                 {type==='post' && (
                 	<div>
                         <label>Category</label>
-                        <select className='' name='category'>
+                        <select className='' name='category' value={post && post.category}
+                                onChange={(e) => editText(e)}>
                         	{categories.map ((c) => (
                         		c.name !=='All' &&
                                 <option key={c.name} value={c.name} >{c.name}</option>

@@ -3,10 +3,10 @@ import React from 'react'
 import { Link }  from 'react-router-dom'
 
 const handleVote = (option, props) => {
-    const {fetchData, post, reqVote, recVote} = props
+    const {fetchData, post} = props
     const url = post.parentId ? 'comments' : 'posts'
     option =JSON.stringify({option:option})
-    fetchData(`${url}/${post.id}`, reqVote, recVote, {method:'POST', body:option})
+    fetchData(`${url}/${post.id}`, {method:'POST', body:option})
 }
 
 /**
@@ -20,12 +20,16 @@ export const Post = (props) => {
 
         	<p className='post-body'>{post.body}</p>
         	<p className='post-details'><label>Author   : {post.author}</label></p>
-        	<p className='post-details'><label>Comments : {post.commentCount}</label></p>
+
+            {!post.parentId &&
+        	   <p className='post-details'><label>Comments : {post.commentCount}</label></p>
+            }
         	<p className='post-details'><label>Votes : {post.voteScore}</label></p>
 
         	<button className="post-up" onClick={(o, p) => handleVote('upVote', props)}>
                 <span role='img' aria-label="thumbs up">&#128077;</span>
             </button>
+
             <button className="post-down" onClick={(o, p) => handleVote('downVote', props)}>
                 <span role='img' aria-label="thumbs down">&#128078;</span>
             </button>

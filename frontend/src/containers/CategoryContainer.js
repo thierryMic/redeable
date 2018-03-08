@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
-import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
-import { requestCategories, receiveCategories, filterCategories} from '../actions/actions'
-
+import { fetchData, requestCategories, receiveCategories, filterCategories} from '../actions/actions'
 import { CategoryList } from '../components/CategoryList'
 import { withRouter } from 'react-router-dom'
-
 import { matchPath } from 'react-router'
 
 class CategoryContainer extends Component {

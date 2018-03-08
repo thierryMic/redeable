@@ -22,11 +22,11 @@ class PostContainer extends Component {
         const post = posts.find(p => p.id === postid)
 
         if (post == null) {
-            fetchData(`posts/${postid}`, requestPosts, receivePosts)
+            fetchData(requestPosts, receivePosts)(`posts/${postid}`)
         }
 
         if (!comments[postid] && !(comments[postid] && comments[postid].isFetching)) {
-            fetchData(`posts/${postid}/comments`, requestComments(postid), receiveComments)
+            fetchData(requestComments(postid), receiveComments)(`posts/${postid}/comments`)
         }
     }
 
@@ -39,16 +39,12 @@ class PostContainer extends Component {
         return (
             <div>
                 {post && <Post post={post}
-                               fetchData={fetchData}
-                               reqVote={reqVote}
-                               recVote={recVote}
+                                fetchData={fetchData(reqVote, recVote)}
                                openEditPost={openEditPost('post')}
                             />}
 
                 {post && comments[postid] && <PostList posts={comments[postid]}
-                                                       fetchData={fetchData}
-                                                       reqVote={reqVote}
-                                                       recVote={recVote}
+                                                       fetchData={fetchData(reqVote, recVote)}
                                                        allowSort={false}
                                                        openEditPost={openEditPost('comment')}
                                                 />}
@@ -73,7 +69,8 @@ function mapDispatchToProps(dispatch)  {
         receivePosts: () => dispatch(receivePosts()),
         requestComments: (id) => dispatch(requestComments(id)),
         receiveComments: () => dispatch(receiveComments()),
-        fetchData: (e, i, h, m) => dispatch(fetchData(e, i, h, m)),
+        // fetchData: (e, i, h, m) => dispatch(fetchData(e, i, h, m)),
+        fetchData: (i, h) => (e, m) => dispatch(fetchData(e, i, h, m)),
         sortPosts: (k) => dispatch(sortPosts(k)),
         reqVote: () => dispatch(reqVote()),
         recVote: (p) => dispatch(recVote(p)),

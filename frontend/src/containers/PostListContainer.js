@@ -11,9 +11,10 @@ class PostListContainer extends Component {
     * @description - trigger a request action
     */
     componentDidMount() {
-        const { isFetching, fresh } = this.props
+        const { isFetching, fresh, fetchData} = this.props
         if (!fresh && !isFetching) {
-            this.props.fetchData("posts", requestPosts, receiveAllPosts)
+            console.log(fetchData)
+            fetchData(requestPosts, receiveAllPosts)("posts")
         }
     }
 
@@ -25,9 +26,7 @@ class PostListContainer extends Component {
                 posts={active === 'All' ? posts : posts.filter( p => p.category === active)}
                 sortPosts={sortPosts}
                 allowSort={true}
-                fetchData={fetchData}
-                reqVote={reqVote}
-                recVote={recVote}
+                fetchData={fetchData(reqVote, recVote)}
                 openEditPost={openEditPost('post')}
             />
 
@@ -48,7 +47,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch)  {
     return {
-        fetchData: (e, i, h, m) => dispatch(fetchData(e, i, h, m)),
+        fetchData: (i, h) => (e, m) => dispatch(fetchData(e, i, h, m)),
         requestPosts: () => dispatch(requestPosts()),
         receivePosts: () => dispatch(receiveAllPosts()),
         sortPosts: (k) => dispatch(sortPosts(k)),

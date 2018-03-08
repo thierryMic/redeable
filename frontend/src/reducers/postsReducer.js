@@ -43,12 +43,21 @@ export default function postsReducer(state={posts:[], isFetching:false, fresh:fa
 
 
 		case "REC_POST_VOTE": {
-			const index = state.posts.findIndex( p => p.id === action.payload.id)
 			const newPosts = [...state.posts]
-
+			const index = newPosts.findIndex( p => p.id === action.payload.id)
 			newPosts[index].voteScore = action.payload.voteScore
 			return {...state, posts:newPosts}
 		}
+
+
+		case "REC_SAVE_COMMENT": {
+			const newPosts = [...state.posts]
+			const index = newPosts.findIndex( p => p.id === action.payload.parentId)
+			newPosts[index].commentCount++
+			return {...state, posts:newPosts}
+		}
+
+
 
 		default: {
 			return state;

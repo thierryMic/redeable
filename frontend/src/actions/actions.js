@@ -77,10 +77,10 @@ export function receiveAllPosts(posts) {
 	}
 }
 
-export const activatePost = (post) => ({
-	type: ACTIVATE_POST,
-	post,
-})
+// export const activatePost = (post) => ({
+// 	type: ACTIVATE_POST,
+// 	post,
+// })
 
 
 export const sortPosts = (key) => ({
