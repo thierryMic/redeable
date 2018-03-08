@@ -13,6 +13,21 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 				}
 		}
 
+		case "REC_SAVE_COMMENT": {
+			const {payload} = action
+			const index = state.comments[payload.parentId].findIndex( p => p.id === payload.id)
+			let newComments =[]
+
+			console.log("Index", index)
+			if (index === -1) {
+				 newComments = [...state.comments[payload.parentId], payload]
+			} else {
+				newComments = [...state.comments[payload.parentId]]
+				newComments[index] = payload
+			}
+			return {...state, comments:{...state.comments, [payload.parentId]:newComments}}
+		}
+
 
 		case "REC_COMMENT_VOTE": {
 			const {payload} = action

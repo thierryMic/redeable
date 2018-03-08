@@ -2,7 +2,6 @@
 import React from 'react'
 import { Link }  from 'react-router-dom'
 
-
 const handleVote = (option, props) => {
     const {fetchData, post, reqVote, recVote} = props
     const url = post.parentId ? 'comments' : 'posts'
@@ -14,10 +13,9 @@ const handleVote = (option, props) => {
 * @description Represents a category list
 */
 export const Post = (props) => {
-    const { post } = props
+    const { post, openEditPost } = props
     return (
         <div>
-
             <Link className='post-title' to= {`/${post.category}/${post.id}`}>{post.title}</Link>
 
         	<p className='post-body'>{post.body}</p>
@@ -32,7 +30,11 @@ export const Post = (props) => {
                 <span role='img' aria-label="thumbs down">&#128078;</span>
             </button>
 
-			<button className="post-edit" aria-label="edit">&#128396;</button>
+			<button className="post-edit"
+                    aria-label="edit"
+                    onClick={() => {openEditPost(true, post)}}
+            >&#128396;
+            </button>
         	<button className="post-delete" aria-label="delete">&#128465;</button>
         </div>
     )

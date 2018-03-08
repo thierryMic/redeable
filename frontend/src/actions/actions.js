@@ -19,8 +19,22 @@ export const REQ_SAVE_POST = 'REQ_SAVE_POST'
 export const REC_SAVE_POST = 'REC_SAVE_POST'
 
 export const REQ_VOTE = 'REQ_VOTE'
+
 export const REC_POST_VOTE = 'REC_POST_VOTE'
 export const REC_COMMENT_VOTE = 'REC_COMMENT_VOTE'
+export const REC_SAVE_COMMENT = 'REC_SAVE_COMMENT'
+
+export const EDIT_TEXT = 'EDIT_TEXT'
+
+
+export const editText = (e) => {
+	let delta = {}
+	delta[e.target.name] = e.target.value
+	return {
+		type: EDIT_TEXT,
+		delta
+	}
+}
 
 
 export const requestCategories = () => ({
@@ -80,9 +94,11 @@ export const refreshPosts = () => ({
 })
 
 
-export const openEditPost = (open) => ({
+export const openEditPost = (open, post, editType) => ({
 	type: OPEN_EDIT_POST,
-	open
+	open,
+	post,
+	editType
 })
 
 
@@ -91,9 +107,9 @@ export const reqSavePost = () => () => ({
 })
 
 
-export const recSavePost = (post) => () => ({
-	type: REC_SAVE_POST,
-	post
+export const recSavePost = (payload) => () => ({
+	type: payload.parentId ? REC_SAVE_COMMENT : REC_SAVE_POST,
+	payload
 })
 
 

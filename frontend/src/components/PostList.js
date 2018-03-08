@@ -6,7 +6,7 @@ import { Post } from './Post'
 */
 export const PostList = (props) => {
 
-    const { posts, sortPosts, allowSort, fetchData, reqVote, recVote } = props
+    const { posts, sortPosts, allowSort, fetchData, reqVote, recVote, openEditPost } = props
 
     return (
         <div>
@@ -28,6 +28,7 @@ export const PostList = (props) => {
                                        fetchData={fetchData}
                                        reqVote={reqVote}
                                        recVote={recVote}
+                                       openEditPost={openEditPost}
                                 />))}
         </div>
     )

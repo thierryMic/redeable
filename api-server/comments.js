@@ -65,6 +65,7 @@ function get (token, id) {
 }
 
 function add (token, comment) {
+  console.log("ADD COMMENT:", comment)
   return new Promise((res) => {
     let comments = getData(token)
 
@@ -122,6 +123,7 @@ function disable (token, id) {
 }
 
 function edit (token, id, comment) {
+    console.log("EDIT COMMENT:", comment)
     return new Promise((res) => {
         let comments = getData(token)
         for (prop in comment) {

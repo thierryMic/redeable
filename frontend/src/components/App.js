@@ -20,10 +20,9 @@ class App extends Component {
         return (
         <div className='App'>
 
-            <EditPostContainer />
-
             <Route exact path='/:category/:postid' render={( {match} ) => (
                 <div>
+                    <EditPostContainer />
                     <CategoryContainer match={match}/>
                     <PostContainer match={match} />
                 </div>
@@ -32,6 +31,7 @@ class App extends Component {
 
             <Route exact path='/:category?' render={( {match} ) => (
                 <div>
+                    <EditPostContainer />
                     <CategoryContainer match={match}/>
                     <PostListContainer />
                 </div>
