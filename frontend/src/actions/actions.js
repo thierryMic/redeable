@@ -23,6 +23,7 @@ export const REQ_VOTE = 'REQ_VOTE'
 export const REC_POST_VOTE = 'REC_POST_VOTE'
 export const REC_COMMENT_VOTE = 'REC_COMMENT_VOTE'
 export const REC_SAVE_COMMENT = 'REC_SAVE_COMMENT'
+export const REC_NEW_COMMENT = 'REC_NEW_COMMENT'
 
 export const EDIT_TEXT = 'EDIT_TEXT'
 
@@ -109,6 +110,12 @@ export const reqSavePost = () => () => ({
 
 export const recSavePost = (payload) => () => ({
 	type: payload.parentId ? REC_SAVE_COMMENT : REC_SAVE_POST,
+	payload
+})
+
+
+export const recNewComment = (payload) => () => ({
+	type: REC_NEW_COMMENT,
 	payload
 })
 

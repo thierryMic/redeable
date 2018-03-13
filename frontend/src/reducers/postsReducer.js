@@ -50,7 +50,7 @@ export default function postsReducer(state={posts:[], isFetching:false, fresh:fa
 		}
 
 
-		case "REC_SAVE_COMMENT": {
+		case "REC_NEW_COMMENT": {
 			const newPosts = [...state.posts]
 			const index = newPosts.findIndex( p => p.id === action.payload.parentId)
 			newPosts[index].commentCount++

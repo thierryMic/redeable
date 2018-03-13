@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Post } from '../components/Post'
 import PropTypes from 'prop-types'
-import { fetchData } from '../actions/actions'
-import { requestPosts, receivePosts, requestComments, receiveComments, sortPosts, reqVote, recVote, openEditPost} from '../actions/actions'
+import { requestPosts, receivePosts, requestComments, receiveComments,
+         sortPosts, reqVote, recVote, openEditPost, fetchData} from '../actions/actions'
 import { connect } from 'react-redux'
 import { PostList } from '../components/PostList'
 
@@ -39,14 +39,14 @@ class PostContainer extends Component {
         return (
             <div>
                 {post && <Post post={post}
-                                fetchData={fetchData(reqVote, recVote)}
-                               openEditPost={openEditPost('post')}
+                               fetchData={fetchData(reqVote, recVote)}
+                               openEditPost={openEditPost('editPost')}
                             />}
 
                 {post && comments[postid] && <PostList posts={comments[postid]}
                                                        fetchData={fetchData(reqVote, recVote)}
                                                        allowSort={false}
-                                                       openEditPost={openEditPost('comment')}
+                                                       openEditPost={openEditPost('editComment')}
                                                 />}
 
             </div>
@@ -69,7 +69,6 @@ function mapDispatchToProps(dispatch)  {
         receivePosts: () => dispatch(receivePosts()),
         requestComments: (id) => dispatch(requestComments(id)),
         receiveComments: () => dispatch(receiveComments()),
-        // fetchData: (e, i, h, m) => dispatch(fetchData(e, i, h, m)),
         fetchData: (i, h) => (e, m) => dispatch(fetchData(e, i, h, m)),
         sortPosts: (k) => dispatch(sortPosts(k)),
         reqVote: () => dispatch(reqVote()),

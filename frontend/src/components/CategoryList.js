@@ -11,8 +11,11 @@ export const CategoryList = (props) => {
     return (
         <div>
             {categories.map( (c) => (
-                <Category key={c.name} category={c} filter={filter} active={activeFilter===c.name}/>
-                ))}
+                <Category key={c.name}
+                          category={c}
+                          filter={filter}
+                          active={activeFilter===c.name}
+                />))}
         </div>
     )
 }

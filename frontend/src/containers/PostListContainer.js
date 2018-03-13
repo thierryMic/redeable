@@ -13,7 +13,6 @@ class PostListContainer extends Component {
     componentDidMount() {
         const { isFetching, fresh, fetchData} = this.props
         if (!fresh && !isFetching) {
-            console.log(fetchData)
             fetchData(requestPosts, receiveAllPosts)("posts")
         }
     }
@@ -27,7 +26,7 @@ class PostListContainer extends Component {
                 sortPosts={sortPosts}
                 allowSort={true}
                 fetchData={fetchData(reqVote, recVote)}
-                openEditPost={openEditPost('post')}
+                openEditPost={openEditPost('editPost')}
             />
 
 

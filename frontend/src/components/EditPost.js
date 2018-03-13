@@ -10,7 +10,7 @@ export const EditPost = (props) => {
     return (
         <Modal isOpen={isOpen}>
         	<form className='' onSubmit={(e) => handleSubmit(e)}>
-                {type==='post' && (
+                {type==='newPost' && (
                 	<div>
                         <label>Category</label>
                         <select className='' name='category' value={post && post.category}
@@ -51,8 +51,6 @@ export const EditPost = (props) => {
 EditPost.propTypes = {
 	categories: PropTypes.array.isRequired,
 	isOpen: PropTypes.bool.isRequired,
-	reqSavePost: PropTypes.func.isRequired,
-    recSavePost: PropTypes.func.isRequired,
     openEditPost: PropTypes.func.isRequired,
     editText: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired

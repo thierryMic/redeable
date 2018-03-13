@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { EditPost } from '../components/EditPost'
-import { openEditPost, reqSavePost, recSavePost, recNewComment, fetchData, editText } from '../actions/actions'
+import { openEditPost, reqSavePost, recSavePost, fetchData, editText } from '../actions/actions'
 import { withRouter } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 
@@ -16,54 +16,43 @@ class EditPostContainer extends Component {
     static propTypes = {
         editPostOn: PropTypes.func,
         editType: PropTypes.string,
+        newType:  PropTypes.string.isRequired
     }
 
-
     handleSubmit = (e) => {
-        const { reqSavePost, recSavePost, recNewComment, post, editType, fetchData, match} = this.props
-        let handler = recSavePost
+        const { reqSavePost, recSavePost, post, editType, fetchData, match} = this.props
         let url = 'posts'
         let newPost = serializeForm(e.target, { hash: true, empty:true})
-        let method ='POST'
-        let body = {}
 
         e.preventDefault()
 
-        // set relevant url and get a time stamp if this is a comment
-        if (editType.indexOf('Comment') > 0) {
+        if (editType === 'comment') {
             url = 'comments'
             post.timestamp = Date.now()
             newPost.parentId = match.params.postid
         }
 
-        // new post or comment
-        if (editType.indexOf('new') === 0) {
+        // new post
+        if (post.id == null) {
             newPost.id = UUID.create().hex
             newPost.timestamp = Date.now()
             newPost.author ='default'
-            body = JSON.stringify(newPost)
+            newPost = JSON.stringify(newPost)
+            fetchData(url, reqSavePost, recSaveNewPost, {method:'POST', body:newPost})
         } else {
-            //existing post or comment, change method and append id
-            body = JSON.stringify(post)
-            method = 'PUT'
-            url = `${url}/${post.id}`
+            //existing post
+            const edits = JSON.stringify(post)
+            fetchData(`${url}/${post.id}`, reqSavePost, recSavePost, {method:'PUT', body:edits})
         }
-
-        //change handler for new comments
-        if (editType === 'newComment') {
-            handler = recNewComment
-        }
-
-        fetchData(url, reqSavePost, handler, {method: method, body:body})
     }
 
 
     render() {
-        const { categories, openEditPost, isOpen, post, editText, match} = this.props
-        const newType = match.params.postid ? 'Comment' : 'Post'
+        const { categories, openEditPost, isOpen, post, editText, editType, match} = this.props
+        const newType = match.params.postid ? 'comment' : 'post'
         return (
             <div>
-                <button className='' onClick={() => {openEditPost(true, {}, `new${newType}`)}}>
+                <button className='' onClick={() => {openEditPost(true, {}, newType)}}>
                     New {newType}
                 </button>
 
@@ -72,7 +61,7 @@ class EditPostContainer extends Component {
                           editText={editText}
                           categories={categories}
                           post={post}
-                          type={`new${newType}`}
+                          type={editType}
                           handleSubmit={this.handleSubmit}
                 />
             </div>
@@ -97,7 +86,6 @@ function mapDispatchToProps(dispatch)  {
         editText: (e) => dispatch(editText(e)),
         reqSavePost: () => dispatch(reqSavePost()),
         recSavePost: (p) => dispatch(recSavePost(p)),
-        recNewComment: (p) => dispatch(recNewComment(p)),
         fetchData: (e, i, h, m) => dispatch(fetchData(e, i, h, m))
     }
 }

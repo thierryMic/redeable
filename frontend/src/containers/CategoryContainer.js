@@ -20,7 +20,7 @@ class CategoryContainer extends Component {
     componentDidMount() {
         const { categories, isFetching, filterCategories, match, history, fetchData } = this.props
         if (categories.length === 0 && !isFetching) {
-            fetchData("categories", requestCategories, receiveCategories)
+            fetchData("categories")
             filterCategories(match.params.category || "")
         }
 
@@ -44,7 +44,6 @@ class CategoryContainer extends Component {
 
         return (
             <CategoryList categories={categories}
-                          match={match}
                           filter={filterCategories}
                           activeFilter={match.params.category || ""}/>
         )
@@ -65,7 +64,7 @@ function mapDispatchToProps(dispatch)  {
         requestCategories: () => dispatch(requestCategories()),
         receiveCategories: () => dispatch(receiveCategories()),
         filterCategories: (id) => dispatch(filterCategories(id)),
-        fetchData: (e, i, h) => dispatch(fetchData(e, i, h))
+        fetchData: (e, i, h) => dispatch(fetchData(e, requestCategories, receiveCategories))
     }
 }
 
