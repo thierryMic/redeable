@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
-import { requestPosts, receiveAllPosts, sortPosts, reqVote, recVote, openEditPost } from '../actions/actions'
+import { requestPosts, receiveAllPosts, sortPosts, reqVote, recVote,
+         openEditPost, reqDeletePost, recDeletePost } from '../actions/actions'
 import { PostList } from '../components/PostList'
 
 
@@ -19,13 +20,15 @@ class PostListContainer extends Component {
 
 
     render() {
-        const { posts, active, sortPosts, fetchData, reqVote, recVote, openEditPost } = this.props
+        const { posts, active, sortPosts, fetchData, reqVote, recVote, openEditPost,
+                reqDeletePost, recDeletePost} = this.props
         return (
             <PostList
                 posts={active === 'All' ? posts : posts.filter( p => p.category === active)}
                 sortPosts={sortPosts}
                 allowSort={true}
-                fetchData={fetchData(reqVote, recVote)}
+                vote={fetchData(reqVote, recVote)}
+                del={fetchData(reqDeletePost, recDeletePost)}
                 openEditPost={openEditPost('editPost')}
             />
 
@@ -52,6 +55,8 @@ function mapDispatchToProps(dispatch)  {
         sortPosts: (k) => dispatch(sortPosts(k)),
         reqVote: () => dispatch(reqVote()),
         recVote: (p) => dispatch(recVote(p)),
+        reqDeletePost: () => dispatch(reqDeletePost()),
+        recDeletePost: (p) => dispatch(recDeletePost(p)),
         openEditPost: t => (o, p) =>  dispatch(openEditPost(o, p, t)),
     }
 }

@@ -58,6 +58,21 @@ export default function postsReducer(state={posts:[], isFetching:false, fresh:fa
 		}
 
 
+		case "REC_DELETE_POST": {
+			const newPosts = [...state.posts]
+			const index = newPosts.findIndex( p => p.id === action.payload.id)
+			newPosts.splice(index,1)
+			return {...state, posts:newPosts}
+		}
+
+
+		case "REC_DELETE_COMMENT": {
+			const newPosts = [...state.posts]
+			const index = newPosts.findIndex( p => p.id === action.payload.parentId)
+			newPosts[index].commentCount--
+			return {...state, posts:newPosts}
+		}
+
 
 		default: {
 			return state;

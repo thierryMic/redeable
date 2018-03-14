@@ -45,6 +45,17 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 		}
 
 
+		case "REC_DELETE_COMMENT": {
+			const {payload} = action
+			const index = state.comments[payload.parentId].findIndex( p => p.id === payload.id)
+			let newComments =[]
+
+			newComments = [...state.comments[payload.parentId]]
+			newComments.splice(index,1)
+			return {...state, comments:{...state.comments, [payload.parentId]:newComments}}
+		}
+
+
 		default: {
 			return state;
 		}

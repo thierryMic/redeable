@@ -17,6 +17,8 @@ export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const OPEN_EDIT_POST = 'OPEN_EDIT_POST'
 export const REQ_SAVE_POST = 'REQ_SAVE_POST'
 export const REC_SAVE_POST = 'REC_SAVE_POST'
+export const REQ_DELETE_POST = 'REQ_DELETE_POST'
+export const REC_DELETE_POST = 'REC_DELETE_POST'
 
 export const REQ_VOTE = 'REQ_VOTE'
 
@@ -24,6 +26,7 @@ export const REC_POST_VOTE = 'REC_POST_VOTE'
 export const REC_COMMENT_VOTE = 'REC_COMMENT_VOTE'
 export const REC_SAVE_COMMENT = 'REC_SAVE_COMMENT'
 export const REC_NEW_COMMENT = 'REC_NEW_COMMENT'
+export const REC_DELETE_COMMENT = 'REC_DELETE_COMMENT'
 
 export const EDIT_TEXT = 'EDIT_TEXT'
 
@@ -63,6 +66,7 @@ export const requestPosts = () => ({
 export const receivePosts = (posts) => {
 	if (!Array.isArray(posts)) {
 		posts = [posts]
+		// throw URIError
 	}
 	return {
 		type: RECEIVE_POSTS,
@@ -129,6 +133,18 @@ export const recVote = (payload) => () => ({
   type: payload.parentId ? REC_COMMENT_VOTE : REC_POST_VOTE,
   payload
 })
+
+
+export const reqDeletePost = () => () => ({
+  type: REQ_DELETE_POST,
+})
+
+
+export const recDeletePost = (payload) => () => ({
+  type: payload.parentId ? REC_DELETE_COMMENT : REC_DELETE_POST,
+  payload
+})
+
 
 export const requestComments = (postId) => () => ({
   type: REQUEST_COMMENTS,

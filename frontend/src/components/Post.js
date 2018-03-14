@@ -1,12 +1,20 @@
 // resources: https://www.compart.com/en/unicode/category/So?sort=-unicode&page=4
 import React from 'react'
 import { Link }  from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 const handleVote = (option, props) => {
-    const {fetchData, post} = props
+    const {vote, post} = props
     const url = post.parentId ? 'comments' : 'posts'
-    option =JSON.stringify({option:option})
-    fetchData(`${url}/${post.id}`, {method:'POST', body:option})
+    option = JSON.stringify({option:option})
+    vote(`${url}/${post.id}`, {method:'POST', body:option})
+}
+
+const handleDelete = (props, history) => {
+    const {del, post} = props
+    const url = post.parentId ? 'comments' : 'posts'
+    del(`${url}/${post.id}`, {method:'DELETE'})
+    !post.parentId && history.push('/All')
 }
 
 /**
@@ -15,6 +23,7 @@ const handleVote = (option, props) => {
 export const Post = (props) => {
     const { post, openEditPost } = props
     return (
+        <Route render={({ history }) => { return (
         <div>
             <Link className='post-title' to= {`/${post.category}/${post.id}`}>{post.title}</Link>
 
@@ -34,12 +43,18 @@ export const Post = (props) => {
                 <span role='img' aria-label="thumbs down">&#128078;</span>
             </button>
 
-			<button className="post-edit"
-                    aria-label="edit"
+			<button className="post-edit" aria-label="edit"
                     onClick={() => {openEditPost(true, post)}}
-            >&#128396;
+            >
+                &#128396;
             </button>
-        	<button className="post-delete" aria-label="delete">&#128465;</button>
+
+        	<button className="post-delete" aria-label="delete"
+                    onClick={(p) => handleDelete(props, history)}
+            >
+                &#128465;
+            </button>
         </div>
+        )}}/>
     )
 }
