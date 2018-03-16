@@ -1,4 +1,5 @@
-export default function appReducer(state={editPostOpen:false, editedPost:{}, editType:'post'}, action) {
+export default function appReducer(state={editPostOpen:false, editedPost:{}, editType:'post',
+								          location:'category'}, action) {
 	switch (action.type) {
 
 		case "OPEN_EDIT_POST": {
@@ -7,7 +8,7 @@ export default function appReducer(state={editPostOpen:false, editedPost:{}, edi
 
 
 		case "EDIT_TEXT": {
-			return{...state, editPost:{...state.editPost, ...action.delta}}
+			return{ ...state, editPost:{...state.editPost, ...action.delta}}
 		}
 
 		default: {

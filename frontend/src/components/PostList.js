@@ -9,7 +9,7 @@ export const PostList = (props) => {
     const { posts, sortPosts, allowSort, vote, del, openEditPost } = props
 
     return (
-        <div>
+        <div className='post-list'>
             {allowSort && (
                 <label className=''> Sort by:
                     <select className=''

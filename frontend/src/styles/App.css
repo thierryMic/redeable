@@ -88,7 +88,7 @@ html, body, .root {
     align-items: flex-end;
     display: flex;
     flex-wrap: wrap;
-    height: 6em;
+    height: 5em;
     justify-content: space-between;
     max-width: 800px;
     top: 0;
@@ -101,10 +101,15 @@ html, body, .root {
 
 .container {
 	display: flex;
-	align-items: center;
-	/*position: relative;*/
-	margin-top: 5em;
+	margin-top: 6.6em;
+}
 
+.post-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 }
 
 .title {
@@ -185,6 +190,8 @@ html, body, .root {
     background-color: white;
     color: black;
     border: 2px solid #224e70;
+    height: 2em;
+
 }
 
 .button:hover {
@@ -194,7 +201,6 @@ html, body, .root {
 
 .cat-button {
 	width: 5em;
-    height: 2em;
 }
 
 .cat-button-active {
@@ -205,6 +211,7 @@ html, body, .root {
 
 .new-button {
 	position: absolute;
-	top: 0;
+	top: 5em;
 	right: 0;
+	/*width: 6em;*/
 }

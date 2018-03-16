@@ -1,5 +1,6 @@
 import '../styles/App.css'
 import React, { Component } from 'react'
+import { matchPath } from 'react-router'
 import { Route } from 'react-router-dom'
 import CategoryContainer from '../containers/CategoryContainer'
 import PostListContainer from '../containers/PostListContainer'
@@ -18,9 +19,19 @@ class App extends Component {
     componentDidMount() {
     }
 
+    getPostFromUrl() {
+        const url = this.props.history.location.pathname
+        const match = matchPath(url, {path: '/:category/:postid', exact: true, strict: false})
+        return match === null ? "" : match.params.postid
+    }
+
+    handleNew() {
+        const newType = this.getPostFromUrl() ? 'Comment' : 'Post'
+        this.props.openEditPost(true, {}, `new${newType}`)
+    }
 
     render() {
-        const newType = this.props.match.params.postid ? 'Comment' : 'Post'
+
         return (
         <div className='App'>
             <Route render={( {match} ) => (
@@ -28,10 +39,8 @@ class App extends Component {
                 <div className='header'>
                     <span className='title'> Readable </span>
                     <CategoryContainer match={match}/>
-                    <button className='button new-button'
-                            onClick={() => {this.props.openEditPost(true, {}, `new${newType}`)}}
-                    >
-                        New {newType}
+                    <button className='button new-button' onClick={() => this.handleNew()}>
+                        New {this.getPostFromUrl() ? 'comment' : 'post'}
                     </button>
                 </div>
                 )}
