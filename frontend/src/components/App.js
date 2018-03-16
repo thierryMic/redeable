@@ -19,7 +19,7 @@ class App extends Component {
     render() {
         return (
         <div className='App'>
-
+            <div className='header'>Readable</div>
             <Route exact path='/:category/:postid' render={( {match} ) => (
                 <div>
                     <EditPostContainer />

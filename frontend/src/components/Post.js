@@ -24,36 +24,39 @@ export const Post = (props) => {
     const { post, openEditPost } = props
     return (
         <Route render={({ history }) => { return (
-        <div>
+        <div className='post'>
             <Link className='post-title' to= {`/${post.category}/${post.id}`}>{post.title}</Link>
 
         	<p className='post-body'>{post.body}</p>
-        	<p className='post-details'><label>Author   : {post.author}</label></p>
 
-            {!post.parentId &&
-        	   <p className='post-details'><label>Comments : {post.commentCount}</label></p>
-            }
-        	<p className='post-details'><label>Votes : {post.voteScore}</label></p>
+            <div className='post-footer'>
+            <div className='post-details'>
+            	<p className='post-detail'><label>Author   : {post.author}</label></p>
 
-        	<button className="post-up" onClick={(o, p) => handleVote('upVote', props)}>
-                <span role='img' aria-label="thumbs up">&#128077;</span>
-            </button>
+                {!post.parentId &&
+            	   <p className='post-detail'><label>Comments : {post.commentCount}</label></p>
+                }
+            	<p className='post-detail'><label>Votes : {post.voteScore}</label></p>
+            </div>
 
-            <button className="post-down" onClick={(o, p) => handleVote('downVote', props)}>
-                <span role='img' aria-label="thumbs down">&#128078;</span>
-            </button>
+            <div className='post-actions'>
+            	<button className="post-action" onClick={(o, p) => handleVote('upVote', props)}>
+                    <span role='img' aria-label="thumbs up">&#128077;</span>
+                </button>
 
-			<button className="post-edit" aria-label="edit"
-                    onClick={() => {openEditPost(true, post)}}
-            >
-                &#128396;
-            </button>
+                <button className="post-action" onClick={(o, p) => handleVote('downVote', props)}>
+                    <span role='img' aria-label="thumbs down">&#128078;</span>
+                </button>
 
-        	<button className="post-delete" aria-label="delete"
-                    onClick={(p) => handleDelete(props, history)}
-            >
-                &#128465;
-            </button>
+    			<button className="post-action" onClick={() => {openEditPost(true, post)}}>
+                    <span role='img' aria-label="edit">&#128396;</span>
+                </button>
+
+            	<button className="post-action" onClick={(p) => handleDelete(props, history)}>
+                    <span role='img' aria-label="delete">&#128465;</span>
+                </button>
+            </div>
+            </div>
         </div>
         )}}/>
     )
