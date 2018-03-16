@@ -21,7 +21,7 @@ class CategoryContainer extends Component {
         const { categories, isFetching, filterCategories, match, history, fetchData } = this.props
         if (categories.length === 0 && !isFetching) {
             fetchData("categories")
-            filterCategories(match.params.category || "")
+            filterCategories(this.getCategoryFromUrl(history.location.pathname) || "")
         }
 
         window.onpopstate = () => {
@@ -40,12 +40,12 @@ class CategoryContainer extends Component {
 
 
     render() {
-        const { categories, filterCategories, match } = this.props
+        const { categories, filterCategories, match, activeFilter } = this.props
 
         return (
             <CategoryList categories={categories}
                           filter={filterCategories}
-                          activeFilter={match.params.category || ""}/>
+                          activeFilter={activeFilter}/>
         )
     }
 }

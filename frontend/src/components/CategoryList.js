@@ -9,7 +9,7 @@ export const CategoryList = (props) => {
 
     const { categories, filter, activeFilter } = props
     return (
-        <div>
+        <div className='cat-list'>
             {categories.map( (c) => (
                 <Category key={c.name}
                           category={c}

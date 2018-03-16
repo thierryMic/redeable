@@ -19,20 +19,25 @@ class App extends Component {
     render() {
         return (
         <div className='App'>
-            <div className='header'>Readable</div>
-            <Route exact path='/:category/:postid' render={( {match} ) => (
-                <div>
-                    <EditPostContainer />
+            <Route render={( {match} ) => (
+                <div className='header'>
+                    <span className='title'> Readable </span>
                     <CategoryContainer match={match}/>
+                </div>
+                )}
+            />
+
+            <Route exact path='/:category/:postid' render={( {match} ) => (
+                <div className='container'>
+                    <EditPostContainer />
                     <PostContainer match={match} />
                 </div>
                 )}
             />
 
             <Route exact path='/:category?' render={( {match} ) => (
-                <div>
+                <div className='container'>
                     <EditPostContainer />
-                    <CategoryContainer match={match}/>
                     <PostListContainer />
                 </div>
                 )}

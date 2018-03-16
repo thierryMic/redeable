@@ -73,24 +73,43 @@ html, body, .root {
 /**CONTAINER**/
 
 #root {
-    display: block;
+    /*display: block;*/
     flex-direction: column;
     height: 100%;
     margin: auto;
-    max-width: 1100px;
+    max-width: 800px;
     /*overflow: auto;*/
     width: 85%;
+    top: 0;
+    /*position: relative;*/
 }
 
 .header {
     align-items: flex-end;
     display: flex;
     flex-wrap: wrap;
-    height: 3.5em;
+    height: 6em;
     justify-content: space-between;
-    max-width: 1100px;
+    max-width: 800px;
+    top: 0;
     position: absolute;
     width: 85%;
+    z-index: 0;
+    background: white;
+    /*margin-top: 1em;*/
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	/*position: relative;*/
+	margin-top: 5em;
+
+}
+
+.title {
+	font-size: 3em;
+	width: 100%;
 }
 
 
@@ -102,7 +121,7 @@ html, body, .root {
     box-shadow: 0 4px 6px 2px rgba(0,0,0,.3);
     margin: .5em 0 1em 0;
     padding: 10px 20px;
-    width: 100%;
+    width: 98%;
 }
 
 
@@ -148,9 +167,35 @@ html, body, .root {
 
 }
 
-.category-button {
-	margin: 10px;
+.cat-list {
+	margin: 1em 0;
 }
-.category-button-active {
+.cat-button {
+	background-color: #4CAF50; /* Green */
+    border: none;
+    color: #224e70;
+    /*padding: 1em;*/
+    width: 5em;
+    height: 2em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: .8em;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid #224e70;
+}
+
+.cat-button:hover {
+    background-color: #224e70;
+    color: white;
+}
+
+.cat-button-active {
 	font-weight: bold;
+	background-color: #224e70;
+	color: white;
 }
