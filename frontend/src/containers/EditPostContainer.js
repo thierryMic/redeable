@@ -63,10 +63,6 @@ class EditPostContainer extends Component {
         const newType = match.params.postid ? 'Comment' : 'Post'
         return (
             <div>
-                <button className='' onClick={() => {openEditPost(true, {}, `new${newType}`)}}>
-                    New {newType}
-                </button>
-
                 <EditPost isOpen={isOpen}
                           openEditPost={openEditPost}
                           editText={editText}

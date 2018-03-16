@@ -170,13 +170,11 @@ html, body, .root {
 .cat-list {
 	margin: 1em 0;
 }
-.cat-button {
+.button {
 	background-color: #4CAF50; /* Green */
     border: none;
     color: #224e70;
     /*padding: 1em;*/
-    width: 5em;
-    height: 2em;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -189,13 +187,24 @@ html, body, .root {
     border: 2px solid #224e70;
 }
 
-.cat-button:hover {
+.button:hover {
     background-color: #224e70;
     color: white;
+}
+
+.cat-button {
+	width: 5em;
+    height: 2em;
 }
 
 .cat-button-active {
 	font-weight: bold;
 	background-color: #224e70;
 	color: white;
+}
+
+.new-button {
+	position: absolute;
+	top: 0;
+	right: 0;
 }

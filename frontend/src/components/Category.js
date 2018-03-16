@@ -14,7 +14,7 @@ export const Category = (props) => {
     return (
         <Route render={({ history }) => {
             return(
-                <button className={active ? 'cat-button-active cat-button' : 'cat-button'}
+                <button className={'button cat-button ' + (active ? 'cat-button-active' : '')}
                         onClick={() => {
                             history.push(`/${category.name}`)
                             filter(category.name)
