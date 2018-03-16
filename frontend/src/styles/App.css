@@ -129,6 +129,10 @@ html, body, .root {
     width: 98%;
 }
 
+.comment {
+    background-color: #f4f4f5;
+}
+
 
 .post-title {
 	width: 100%;

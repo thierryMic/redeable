@@ -8,7 +8,10 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 		}
 
 		case "RECEIVE_COMMENTS": {
-			return {comments: {...state.comments, ...action.comments},
+			const {comments, sortKey} = action
+			const key = Object.keys(comments)[0]
+			const newComments = sort(comments[key], sortKey)
+			return {comments: {...state.comments, [key]:newComments},
 					isFetching: {...state.isFetching, [action.parentId]:false}
 				}
 		}
@@ -34,13 +37,16 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 
 
 		case "REC_COMMENT_VOTE": {
-			const {payload} = action
+			const {payload, sortKey} = action
 			const index = state.comments[payload.parentId].findIndex( p => p.id === payload.id)
-			const newComments = [...state.comments[payload.parentId]]
-
+			let newComments = [...state.comments[payload.parentId]]
 			newComments[index].voteScore = payload.voteScore
+			if (sortKey === 'voteScore') {
+				newComments = sort(newComments, sortKey)
+			}
+
 			return {...state,
-					comments:{...state.comments, [payload.parentID]:newComments}
+					comments:{...state.comments, [payload.parentId]:newComments}
 				}
 		}
 
@@ -56,8 +62,23 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 		}
 
 
+		case "SORT_POSTS": {
+			const {postid, key} = action
+			if (postid) {
+				const newComments = sort(state.comments[postid], key)
+				return {...state,
+						comments: {...state.comments, [postid]:newComments}
+						}
+			} else {
+				return state
+			}
+		}
+
 		default: {
 			return state;
 		}
 	}
 }
+
+const sort = (array, key) => [...array.sort( (a,b) => ( a[key] <  b[key]))]
+

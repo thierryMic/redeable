@@ -31,7 +31,7 @@ class App extends Component {
     }
 
     render() {
-
+        const {sortPosts} = this.props
         return (
         <div className='App'>
             <Route render={( {match} ) => (
@@ -46,7 +46,8 @@ class App extends Component {
                     <div className='sort-select'>
                         <label className=''> Sort by:
                             <select className=''
-                                    onChange = {(e) => {this.props.sortPosts(e.target.value)}}
+                                    onChange = {(e, p) => {sortPosts(e.target.value,
+                                                           this.getPostFromUrl())}}
                                     defaultValue={process.env.REACT_APP_DEFAULT_SORT}
                             >
                                 <option value="voteScore">Votes</option>
@@ -87,7 +88,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps(dispatch)  {
     return {
         openEditPost: (o, p, t) => dispatch(openEditPost(o, p, t)),
-        sortPosts: (k) => dispatch(sortPosts(k)),
+        sortPosts: (k, p) => dispatch(sortPosts(k, p)),
     }
 }
 

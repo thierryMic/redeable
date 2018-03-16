@@ -43,9 +43,12 @@ export default function postsReducer(state={posts:[], isFetching:false, fresh:fa
 
 
 		case "REC_POST_VOTE": {
-			const newPosts = [...state.posts]
+			let newPosts = [...state.posts]
 			const index = newPosts.findIndex( p => p.id === action.payload.id)
 			newPosts[index].voteScore = action.payload.voteScore
+			if (state.sortKey === 'voteScore') {
+				newPosts = sort(newPosts, state.sortKey)
+			}
 			return {...state, posts:newPosts}
 		}
 

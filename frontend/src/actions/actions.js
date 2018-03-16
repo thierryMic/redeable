@@ -66,7 +66,6 @@ export const requestPosts = () => ({
 export const receivePosts = (posts) => {
 	if (!Array.isArray(posts)) {
 		posts = [posts]
-		// throw URIError
 	}
 	return {
 		type: RECEIVE_POSTS,
@@ -83,9 +82,10 @@ export function receiveAllPosts(posts) {
 }
 
 
-export const sortPosts = (key) => ({
+export const sortPosts = (key, postid) => ({
 	type: SORT_POSTS,
-	key
+	key,
+	postid
 })
 
 
@@ -124,9 +124,10 @@ export const reqVote = () => () => ({
 })
 
 
-export const recVote = (payload) => () => ({
+export const recVote = (payload) => (dispatch, state) => ({
   type: payload.parentId ? REC_COMMENT_VOTE : REC_POST_VOTE,
-  payload
+  payload,
+  sortKey:state().posts.sortKey
 })
 
 
@@ -147,14 +148,18 @@ export const requestComments = (postId) => () => ({
 })
 
 
-export const receiveComments = (commentsArray) => {
-	let comments = {}
-	const parentId = commentsArray[0] && commentsArray[0].parentId
-	commentsArray.length > 0 && (comments[commentsArray[0].parentId] = commentsArray)
+export function receiveComments (commentsArray)  {
+	return function (dispatch, state) {
+		let comments = {}
+		const parentId = commentsArray[0] && commentsArray[0].parentId
+		commentsArray.length > 0 && (comments[commentsArray[0].parentId] = commentsArray)
 
-	return {type: RECEIVE_COMMENTS,
-			comments,
-			parentId
+		return dispatch({type: RECEIVE_COMMENTS,
+				comments,
+				parentId,
+				sortKey:state().posts.sortKey
+
+			})
 		}
 }
 

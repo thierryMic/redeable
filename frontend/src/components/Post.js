@@ -24,7 +24,7 @@ export const Post = (props) => {
     const { post, openEditPost } = props
     return (
         <Route render={({ history }) => { return (
-        <div className='post'>
+        <div className={'post ' + (post.parentId ? 'comment': '')}>
             <Link className='post-title' to= {`/${post.category}/${post.id}`}>{post.title}</Link>
 
         	<p className='post-body'>{post.body}</p>
