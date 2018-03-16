@@ -52,7 +52,7 @@ function mapDispatchToProps(dispatch)  {
         fetchData: (i, h) => (e, m) => dispatch(fetchData(e, i, h, m)),
         requestPosts: () => dispatch(requestPosts()),
         receivePosts: () => dispatch(receiveAllPosts()),
-        sortPosts: (k) => dispatch(sortPosts(k)),
+        // sortPosts: (k) => dispatch(sortPosts(k)),
         reqVote: () => dispatch(reqVote()),
         recVote: (p) => dispatch(recVote(p)),
         reqDeletePost: () => dispatch(reqDeletePost()),

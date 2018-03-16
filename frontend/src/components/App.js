@@ -7,7 +7,7 @@ import PostListContainer from '../containers/PostListContainer'
 import PostContainer from '../containers/PostContainer'
 import EditPostContainer from '../containers/EditPostContainer'
 import { withRouter } from 'react-router-dom'
-import { openEditPost } from '../actions/actions'
+import { openEditPost, sortPosts } from '../actions/actions'
 import { connect } from 'react-redux'
 
 class App extends Component {
@@ -42,6 +42,19 @@ class App extends Component {
                     <button className='button new-button' onClick={() => this.handleNew()}>
                         New {this.getPostFromUrl() ? 'comment' : 'post'}
                     </button>
+
+                    <div className='sort-select'>
+                        <label className=''> Sort by:
+                            <select className=''
+                                    onChange = {(e) => {this.props.sortPosts(e.target.value)}}
+                                    defaultValue={process.env.REACT_APP_DEFAULT_SORT}
+                            >
+                                <option value="voteScore">Votes</option>
+                                <option value="commentCount">Comments</option>
+                                <option value="timestamp">Date</option>
+                            </select>
+                        </label>
+                    </div>
                 </div>
                 )}
             />
@@ -74,6 +87,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps(dispatch)  {
     return {
         openEditPost: (o, p, t) => dispatch(openEditPost(o, p, t)),
+        sortPosts: (k) => dispatch(sortPosts(k)),
     }
 }
 

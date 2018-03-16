@@ -40,7 +40,7 @@ class PostContainer extends Component {
         const post = posts.find(p => p.id === postid)
 
         return (
-            <div>
+            <div className='post-list'>
                 {post && <Post post={post}
                                vote={fetchData(reqVote, recVote)}
                                del={fetchData(reqDeletePost, recDeletePost)}

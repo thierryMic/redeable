@@ -10,18 +10,6 @@ export const PostList = (props) => {
 
     return (
         <div className='post-list'>
-            {allowSort && (
-                <label className=''> Sort by:
-                    <select className=''
-                            onChange = {(e) => {sortPosts(e.target.value)}}
-                            defaultValue={process.env.REACT_APP_DEFAULT_SORT}
-                    >
-                        <option value="voteScore">Votes</option>
-                        <option value="commentCount">Comments</option>
-                        <option value="timestamp">Date</option>
-                    </select>
-                </label>
-            )}
 
             {posts.map ( (p) => (<Post key={p.id}
                                        post={p}

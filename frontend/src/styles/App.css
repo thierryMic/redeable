@@ -85,10 +85,10 @@ html, body, .root {
 }
 
 .header {
-    align-items: flex-end;
+    /*align-items: flex-end;*/
     display: flex;
     flex-wrap: wrap;
-    height: 5em;
+    height: 8em;
     justify-content: space-between;
     max-width: 800px;
     top: 0;
@@ -101,7 +101,7 @@ html, body, .root {
 
 .container {
 	display: flex;
-	margin-top: 6.6em;
+	margin-top: 8em;
 }
 
 .post-list {
@@ -175,6 +175,7 @@ html, body, .root {
 .cat-list {
 	margin: 1em 0;
 }
+
 .button {
 	background-color: #4CAF50; /* Green */
     border: none;
@@ -191,6 +192,7 @@ html, body, .root {
     color: black;
     border: 2px solid #224e70;
     height: 2em;
+
 
 }
 
@@ -211,7 +213,15 @@ html, body, .root {
 
 .new-button {
 	position: absolute;
-	top: 5em;
+	top: 1em;
 	right: 0;
 	/*width: 6em;*/
+}
+
+.sort-select {
+    font-size: .8em;
+    /*margin: 1em 0;*/
+    top:6.2em;
+    right: 0;
+    position: absolute;
 }
