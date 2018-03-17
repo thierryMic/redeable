@@ -67,7 +67,9 @@ html, body, .root {
     -ms-overflow-style: none;
 }
 
-
+label {
+    margin-bottom: .3em;
+}
 
 
 /**CONTAINER**/
@@ -228,4 +230,64 @@ html, body, .root {
     top:6.2em;
     right: 0;
     position: absolute;
+}
+
+.edit-title {
+    font-weight: bold;
+    margin-bottom: 1.5em;
+
+}
+
+.edit-modal {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    position: relative;
+    width: 50%;
+    top: 3em;
+    justify-content: center;
+    align-items: center;
+    margin: auto auto;
+    /*height: 20em;*/
+    background-color: white;
+    /*font-size: .8em;*/
+    border: 2px;
+}
+
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    /*position: relative;*/
+    width: 90%;
+    /*top: 3em;*/
+    /*justify-content: center;*/
+    /*align-items: flex-start;*/
+    margin: 1em;
+    /*height: 15em;*/
+    padding: 1em;
+    background-color: white;
+}
+
+.edit-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1em;
+
+}
+
+.edit-details {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.edit-sel {
+    width: 30%;
+    margin-bottom: 1em;
+}
+
+.edit-actions {
+    display: inline;
 }

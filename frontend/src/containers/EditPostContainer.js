@@ -20,7 +20,8 @@ class EditPostContainer extends Component {
 
 
     handleSubmit = (e) => {
-        const { reqSavePost, recSavePost, recNewComment, post, editType, fetchData, match} = this.props
+        const { reqSavePost, recSavePost, recNewComment, post, editType, fetchData,
+                openEditPost, match} = this.props
         let handler = recSavePost
         let url = 'posts'
         let newPost = serializeForm(e.target, { hash: true, empty:true})
@@ -55,11 +56,12 @@ class EditPostContainer extends Component {
         }
 
         fetchData(url, reqSavePost, handler, {method: method, body:body})
+        openEditPost(false)
     }
 
 
     render() {
-        const { categories, openEditPost, isOpen, post, editText, match} = this.props
+        const { categories, openEditPost, isOpen, post, editType, editText, match} = this.props
         const newType = match.params.postid ? 'Comment' : 'Post'
         return (
             <div>
@@ -68,7 +70,8 @@ class EditPostContainer extends Component {
                           editText={editText}
                           categories={categories}
                           post={post}
-                          type={`new${newType}`}
+                          // type={`new${newType}`}
+                          type={editType}
                           handleSubmit={this.handleSubmit}
                 />
             </div>

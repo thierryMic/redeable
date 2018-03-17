@@ -115,7 +115,7 @@ export const recSavePost = (payload) => () => ({
 
 export const recNewComment = (payload) => () => ({
 	type: REC_NEW_COMMENT,
-	payload
+	payload,
 })
 
 

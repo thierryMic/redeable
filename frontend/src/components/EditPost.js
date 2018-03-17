@@ -8,12 +8,14 @@ export const EditPost = (props) => {
     const { categories, isOpen, openEditPost, post, editText, type, handleSubmit } = props
     Modal.setAppElement('#root');
     return (
-        <Modal isOpen={isOpen}>
-        	<form className='' onSubmit={(e) => handleSubmit(e)}>
+        <Modal className='edit-modal' isOpen={isOpen}>
+
+        	<form className='edit-form' onSubmit={(e) => handleSubmit(e)}>
+                <div className='edit-title'>{getTitle(type)}</div>
                 {type==='newPost' && (
-                	<div>
+                	<div className='edit-details'>
                         <label>Category</label>
-                        <select className='' name='category' value={post && post.category}
+                        <select className='edit-sel' name='category' value={post && post.category}
                                 onChange={(e) => editText(e)}>
                         	{categories.map ((c) => (
                         		c.name !=='All' &&
@@ -21,28 +23,29 @@ export const EditPost = (props) => {
                         	))}
                         </select>
 
-        	            <label>
-                            Title
-                            <input type='text' name='title'
-                                   value={post && post.title}
-                                   onChange={(e) => editText(e)}
-                                />
-                        </label>
+
+                        <label>Title</label>
+                        <input type='text' name='title'
+                               value={post && post.title}
+                               onChange={(e) => editText(e)}
+                            />
+
                     </div>
                 )}
 
-		        <label>
-                    Contents
+		        <div className='edit-body'>
+                    <label>Contents</label>
                     <textarea rows='5' cols='50' name='body'
                               value={post && post.body}
                               onChange={(e) => editText(e)}
                             >
                     </textarea>
-                </label>
+                </div>
 
-		        <button>Save</button>
-	        	<button className='' onClick={() => {openEditPost(false)}}>Close</button>
-
+                <div className='edit-actions'>
+    		        <button className='button'>Save</button>
+    	        	<button className='button' onClick={() => {openEditPost(false)}}>Close</button>
+                </div>
         	</form>
         </Modal>
     )
@@ -54,4 +57,23 @@ EditPost.propTypes = {
     openEditPost: PropTypes.func.isRequired,
     editText: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
+}
+
+function getTitle(type) {
+    console.log(type)
+    switch(type) {
+        case 'newPost' : {
+            return 'New post'
+        }
+        case 'newComment' : {
+            return 'New comment'
+        }
+        case 'editPost' : {
+            return 'Edit post'
+        }
+        case 'editComment' : {
+            return 'Edit comment'
+        }
+
+    }
 }

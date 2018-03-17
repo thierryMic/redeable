@@ -54,9 +54,12 @@ export default function postsReducer(state={posts:[], isFetching:false, fresh:fa
 
 
 		case "REC_NEW_COMMENT": {
-			const newPosts = [...state.posts]
+			let newPosts = [...state.posts]
 			const index = newPosts.findIndex( p => p.id === action.payload.parentId)
 			newPosts[index].commentCount++
+			if (state.sortKey === 'commentCount') {
+				newPosts = sort(newPosts, state.sortKey)
+			}
 			return {...state, posts:newPosts}
 		}
 
