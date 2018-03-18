@@ -127,8 +127,8 @@ export const reqVote = () => () => ({
 
 export const recVote = (payload) => (dispatch, state) => ({
   type: payload.parentId ? REC_COMMENT_VOTE : REC_POST_VOTE,
+  sortKey:state().posts.sortKey,
   payload,
-  sortKey:state().posts.sortKey
 })
 
 

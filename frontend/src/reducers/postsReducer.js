@@ -32,13 +32,12 @@ export default function postsReducer(state={posts:[], isFetching:false, fresh:fa
 			const {payload} = action
 			const index = state.posts.findIndex( p => p.id === payload.id)
 
-			if (index === -1) {
-				return {...state, posts:sort([...state.posts, payload], state.sortKey)}
-			} else {
+			if (index !== -1) {
 				const newPosts = [...state.posts]
 				newPosts[index] = payload
 				return {...state, posts:newPosts}
 			}
+			return {...state, posts:sort([...state.posts, payload], state.sortKey)}
 		}
 
 

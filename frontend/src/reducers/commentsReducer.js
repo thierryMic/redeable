@@ -16,29 +16,17 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 				}
 		}
 
-		case "REC_SAVE_COMMENT": {
-			const {payload} = action
-			const index = state.comments[payload.parentId].findIndex( p => p.id === payload.id)
-			let newComments =[]
 
-			newComments = [...state.comments[payload.parentId]]
-			newComments[index] = payload
-			return {...state, comments:{...state.comments, [payload.parentId]:newComments}}
-		}
-
-
-		case "REC_NEW_COMMENT": {
-			const {payload} = action
-			let newComments = []
-
-			newComments = [...state.comments[payload.parentId], payload]
-			return {...state, comments:{...state.comments, [payload.parentId]:newComments}}
+		case "REC_NEW_COMMENT":
+		case "REC_SAVE_COMMENT":
+		case "REC_DELETE_COMMENT": {
+			return processComment(action,state)
 		}
 
 
 		case "REC_COMMENT_VOTE": {
 			const {payload, sortKey} = action
-			const index = state.comments[payload.parentId].findIndex( p => p.id === payload.id)
+			const index = state.comments[payload.parentId].findIndex(p => p.id === payload.id)
 			let newComments = [...state.comments[payload.parentId]]
 			newComments[index].voteScore = payload.voteScore
 			if (sortKey === 'voteScore') {
@@ -51,27 +39,13 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 		}
 
 
-		case "REC_DELETE_COMMENT": {
-			const {payload} = action
-			const index = state.comments[payload.parentId].findIndex( p => p.id === payload.id)
-			let newComments =[]
-
-			newComments = [...state.comments[payload.parentId]]
-			newComments.splice(index,1)
-			return {...state, comments:{...state.comments, [payload.parentId]:newComments}}
-		}
-
-
 		case "SORT_POSTS": {
 			const {postid, key} = action
 			if (postid) {
 				const newComments = sort(state.comments[postid], key)
-				return {...state,
-						comments: {...state.comments, [postid]:newComments}
-						}
-			} else {
-				return state
+				return {...state, comments: {...state.comments, [postid]:newComments}}
 			}
+			return state
 		}
 
 		default: {
@@ -82,3 +56,16 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 
 const sort = (array, key) => [...array.sort( (a,b) => ( a[key] <  b[key]))]
 
+function processComment(action, state) {
+	const {parentId, id} = action.payload
+	let newComments = [...state.comments[parentId]]
+	const index = state.comments[parentId].findIndex(p => p.id === id)
+
+	if (action.type === "REC_DELETE_COMMENT") {
+		newComments.splice(index, 1)
+	} else {
+		newComments.splice(index === -1 ? 0 : index, index === -1 ? 0 : 1, action.payload)
+	}
+
+	return {...state, comments:{...state.comments, [parentId]:newComments}}
+}

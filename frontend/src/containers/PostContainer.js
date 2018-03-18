@@ -19,7 +19,13 @@ class PostContainer extends Component {
     */
     componentWillMount() {
         const { postid } = this.props.match.params
-        const { comments, fetchData } = this.props
+        const { posts, comments, fetchData } = this.props
+
+        const post = posts.find(p => p.id === postid)
+
+        if (post == null) {
+            fetchData(requestPosts, receivePosts)(`posts/${postid}`)
+        }
 
         if (!comments[postid] && !(comments[postid] && comments[postid].isFetching)) {
             fetchData(requestComments(postid), receiveComments)(`posts/${postid}/comments`)
