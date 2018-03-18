@@ -1,27 +1,33 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { EditPost } from '../components/EditPost'
-import { openEditPost, reqSavePost, recSavePost, recNewComment, fetchData, editText } from '../actions/actions'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { EditPost } from '../components/EditPost'
 import serializeForm from 'form-serialize'
+import { openEditPost, reqSavePost, recSavePost, recNewComment, fetchData,
+         editText } from '../actions/actions'
 
-var UUID = require('uuid-js');
+// used to generate a unique id for new posts and comments
+const UUID = require('uuid-js');
+
 /**
-* @description Represents a category item
+* Class representing the EditPostContainer component
+* @extends Component
 */
-
 class EditPostContainer extends Component {
 
     static propTypes = {
-        editPostOn: PropTypes.func,
         editType: PropTypes.string,
     }
 
-
+    /**
+    * @description makes the appropriate calls to the api to save posts or comments
+    */
     handleSubmit = (e) => {
         const { reqSavePost, recSavePost, recNewComment, post, editType, fetchData,
                 openEditPost, match} = this.props
+
+        //intialise default values for various parameters
         let handler = recSavePost
         let url = 'posts'
         let newPost = serializeForm(e.target, { hash: true, empty:true})
@@ -44,7 +50,7 @@ class EditPostContainer extends Component {
             newPost.author ='default'
             body = JSON.stringify(newPost)
         } else {
-            //existing post or comment, change method and append id
+            //existing post or comment, change method and append id to url
             body = JSON.stringify(post)
             method = 'PUT'
             url = `${url}/${post.id}`
@@ -55,11 +61,15 @@ class EditPostContainer extends Component {
             handler = recNewComment
         }
 
+        // send api request and close EditPost component
         fetchData(url, reqSavePost, handler, {method: method, body:body})
-        openEditPost(false)
+        .then(openEditPost(false))
+        .catch(error => {console.log(error)})
     }
 
-
+    /**
+    * @description renders a EditPostContainer component
+    */
     render() {
         const { categories, openEditPost, isOpen, post, editType, editText} = this.props
 

@@ -2,21 +2,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Modal from 'react-modal'
 
-
+/**
+* @description renders a EditPost component
+*/
 export const EditPost = (props) => {
-
     const { categories, isOpen, openEditPost, post, editText, type, handleSubmit } = props
     Modal.setAppElement('#root');
     return (
         <Modal className='edit-modal' isOpen={isOpen}>
-
         	<form className='edit-form' onSubmit={(e) => handleSubmit(e)}>
                 <div className='edit-title'>{getTitle(type)}</div>
+
+                {/* Display additional fields for new posts*/}
                 {type==='newPost' && (
                 	<div className='edit-details'>
                         <label>Category</label>
-                        <select className='edit-sel' name='category' value={post && post.category}
-                                onChange={(e) => editText(e)}>
+                        <select className='edit-sel'
+                                name='category'
+                                value={post && post.category}
+                                onChange={(e) => editText(e)}
+                        >
                         	{categories.map ((c) => (
                         		c.name !=='All' &&
                                 <option key={c.name} value={c.name} >{c.name}</option>
@@ -33,6 +38,7 @@ export const EditPost = (props) => {
                     </div>
                 )}
 
+                {/*post body*/}
 		        <div className='edit-body'>
                     <label>Contents</label>
                     <textarea rows='5' cols='50' name='body'
@@ -42,6 +48,7 @@ export const EditPost = (props) => {
                     </textarea>
                 </div>
 
+               {/*save and close*/}
                 <div className='edit-actions'>
     		        <button className='button'>Save</button>
     	        	<button className='button' onClick={() => {openEditPost(false)}}>Close</button>
@@ -59,6 +66,10 @@ EditPost.propTypes = {
     handleSubmit: PropTypes.func.isRequired
 }
 
+
+/**
+* @description returns a title text based on the type
+*/
 function getTitle(type) {
     switch(type) {
         case 'newPost' : {

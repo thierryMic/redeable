@@ -1,50 +1,63 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { fetchData, requestCategories, receiveCategories, filterCategories} from '../actions/actions'
-import { CategoryList } from '../components/CategoryList'
 import { withRouter } from 'react-router-dom'
 import { matchPath } from 'react-router'
+import { connect } from 'react-redux'
+import { fetchData, requestCats, receiveCats, filterCats} from '../actions/actions'
+import { CategoryList } from '../components/CategoryList'
 
+
+
+/**
+* Class representing a category container
+* @extends Component
+*/
 class CategoryContainer extends Component {
 
-
+    /**
+    * @description extracts a postid parameter from the current location's url
+    * @returns {string} postid
+    */
     getCategoryFromUrl = (url) => {
         const match = matchPath(url, {path: '/:category', exact: true, strict: false})
         return match === null ? "" : match.params.category
     }
 
-    /**
-    * @description - trigger a request action
-    */
+  /**
+  * @description retrieves available categories from the readable api
+  */
     componentDidMount() {
-        const { categories, isFetching, filterCategories, history, fetchData } = this.props
+        const { categories, isFetching, filterCats, history, fetchData } = this.props
         if (categories.length === 0 && !isFetching) {
             fetchData("categories")
-            filterCategories(this.getCategoryFromUrl(history.location.pathname) || "")
+            filterCats(this.getCategoryFromUrl(history.location.pathname) || "")
         }
 
+        // @listens back and forward browser buttons
+        // retrieves category from url and filters posts
         window.onpopstate = () => {
             const newFilter = this.getCategoryFromUrl(history.location.pathname)
             if (newFilter !== this.props.activeFilter ) {
-                filterCategories(newFilter)
+                filterCats(newFilter)
             }
         }
     }
 
-
+    /**
+    * @description removes event listeners
+    */
     componentWillUnmount () {
         window.onpopstate = () => {}
     }
 
-
-
+    /**
+    * @description renders a CategoryContainer component
+    */
     render() {
-        const { categories, filterCategories, activeFilter } = this.props
+        const { categories, filterCats, activeFilter } = this.props
 
         return (
             <CategoryList categories={categories}
-                          filter={filterCategories}
+                          filter={filterCats}
                           activeFilter={activeFilter}/>
         )
     }
@@ -61,10 +74,10 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch)  {
     return {
-        requestCategories: () => dispatch(requestCategories()),
-        receiveCategories: () => dispatch(receiveCategories()),
-        filterCategories: (id) => dispatch(filterCategories(id)),
-        fetchData: (e, i, h) => dispatch(fetchData(e, requestCategories, receiveCategories))
+        requestCats: () => dispatch(requestCats()),
+        receiveCats: () => dispatch(receiveCats()),
+        filterCats: (id) => dispatch(filterCats(id)),
+        fetchData: (e, i, h) => dispatch(fetchData(e, requestCats, receiveCats))
     }
 }
 

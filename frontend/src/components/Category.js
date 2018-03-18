@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Route } from 'react-router-dom'
 
+
 /**
-* @description Represents a category item
+* @description renders a Category component
+* @description effectively a command button allows the user to filter posts
 */
-
-
 export const Category = (props) => {
-
     const { category, filter, active } = props
 
     return (

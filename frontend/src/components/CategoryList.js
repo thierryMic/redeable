@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Category } from './Category'
 
 /**
-* @description Represents a category list
+* @description renders a CategoryList component
+* @description this is a list of available categories by which the user can filter
 */
 export const CategoryList = (props) => {
-
     const { categories, filter, activeFilter } = props
     return (
         <div className='cat-list'>

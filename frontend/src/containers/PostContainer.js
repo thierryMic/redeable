@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Post } from '../components/Post'
 import { NotFound } from '../components/NotFound'
+import { PostList } from '../components/PostList'
 import PropTypes from 'prop-types'
 import { requestPosts, receivePosts, requestComments, receiveComments,
          sortPosts, reqVote, recVote, openEditPost, fetchData,
          reqDeletePost, recDeletePost } from '../actions/actions'
-import { connect } from 'react-redux'
-import { PostList } from '../components/PostList'
 
+
+
+/**
+* Class representing the PostContainer component
+* @extends Component
+*/
 class PostContainer extends Component {
 
     static propTypes = {
@@ -15,25 +21,29 @@ class PostContainer extends Component {
     }
 
     /**
-    * @description - trigger a request comments
+    * @description retrieves post and coments from the api server
     */
     componentWillMount() {
         const { postid } = this.props.match.params
         const { posts, comments, fetchData } = this.props
 
+        // retrieves a post from the api if the post is not already loaded
         const post = posts.find(p => p.id === postid)
-
         if (post == null) {
             fetchData(requestPosts, receivePosts)(`posts/${postid}`)
         }
 
+        // retrieves a post's comments from the api if not already loaded
         if (!comments[postid] && !(comments[postid] && comments[postid].isFetching)) {
             fetchData(requestComments(postid), receiveComments)(`posts/${postid}/comments`)
         }
     }
 
-    render() {
 
+    /**
+    * @description renders a PostContainer component
+    */
+    render() {
         const {posts, comments, fetchData, reqVote, recVote, openEditPost ,
                reqDeletePost, recDeletePost, isFetching } = this.props
         const postid = this.props.match.params.postid
@@ -41,18 +51,22 @@ class PostContainer extends Component {
 
         return (
             <div className='post-list'>
+                {/* Display selected post */}
                 {post && <Post post={post}
                                vote={fetchData(reqVote, recVote)}
                                del={fetchData(reqDeletePost, recDeletePost)}
                                openEditPost={openEditPost('editPost')}
                             />}
 
+                {/*Display comments for selected post */}
                 {post && comments[postid] && <PostList posts={comments[postid]}
                                                        vote={fetchData(reqVote, recVote)}
                                                        del={fetchData(reqDeletePost, recDeletePost)}
                                                        allowSort={false}
                                                        openEditPost={openEditPost('editComment')}
                                                 />}
+
+                {/*Display 404 page not found if the post cannot be retrieved */}
                 {!post && !isFetching  && <NotFound />}
             </div>
         )

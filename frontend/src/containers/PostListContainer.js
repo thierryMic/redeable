@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
-import { fetchData } from '../actions/actions'
 import { connect } from 'react-redux'
-import { requestPosts, receiveAllPosts, reqVote, recVote,
-         openEditPost, reqDeletePost, recDeletePost } from '../actions/actions'
 import { PostList } from '../components/PostList'
+import { requestPosts, receiveAllPosts, reqVote, recVote,
+         openEditPost, reqDeletePost, recDeletePost, fetchData } from '../actions/actions'
 
 
+/**
+* Class representing the PostListContainer component
+* @extends Component
+*/
 class PostListContainer extends Component {
 
     /**
-    * @description - trigger a request action
+    * @description retrieves all posts the api server
     */
     componentDidMount() {
         const { isFetching, fresh, fetchData} = this.props
@@ -18,11 +21,15 @@ class PostListContainer extends Component {
         }
     }
 
-
+    /**
+    * @description renders a PostListContainer component
+    */
     render() {
-        const { posts, active, sortPosts, fetchData, reqVote, recVote, openEditPost,
-                reqDeletePost, recDeletePost} = this.props
+        const { posts, active, sortPosts, fetchData, reqVote, recVote,
+                openEditPost, reqDeletePost, recDeletePost} = this.props
+
         return (
+            //filter posts if a category is chosen otherwise display all post
             <PostList
                 posts={active === 'All' ? posts : posts.filter( p => p.category === active)}
                 sortPosts={sortPosts}

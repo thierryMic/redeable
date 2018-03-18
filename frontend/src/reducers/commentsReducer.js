@@ -1,12 +1,14 @@
 export default function commentsReducer(state={comments:{}, isFetching:{}}, action) {
 	switch (action.type) {
 
+		// set isFetching and add a key,value pair consisting of a postid and an empty array
 		case "REQUEST_COMMENTS": {
 			return {comments: {...state.comments, [action.postId]:[]},
 					isFetching: {...state.isFetching, [action.postId]:true}
 				}
 		}
 
+		// add received comments to the state and set isFetching to false
 		case "RECEIVE_COMMENTS": {
 			const {comments, sortKey} = action
 			const key = Object.keys(comments)[0]
@@ -16,7 +18,7 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 				}
 		}
 
-
+		// add, edit and delete comments
 		case "REC_NEW_COMMENT":
 		case "REC_SAVE_COMMENT":
 		case "REC_DELETE_COMMENT": {
@@ -24,6 +26,7 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 		}
 
 
+		// increment or decrement the voteCount of a comment
 		case "REC_COMMENT_VOTE": {
 			const {payload, sortKey} = action
 			const index = state.comments[payload.parentId].findIndex(p => p.id === payload.id)
@@ -38,7 +41,7 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 				}
 		}
 
-
+		// sorts the comment of a post with the id postid
 		case "SORT_POSTS": {
 			const {postid, key} = action
 			if (postid) {
@@ -54,8 +57,20 @@ export default function commentsReducer(state={comments:{}, isFetching:{}}, acti
 	}
 }
 
+/**
+* @description sorts and array in descending order
+* @param {array} array - the array to eb sorted
+* @param {key} array - the key by which to sort the array objects
+*/
 const sort = (array, key) => [...array.sort( (a,b) => ( a[key] <  b[key]))]
 
+
+/**
+* @description adds, edits or deletes a comment
+* @param {object} action - an object compring a comment and an operation to be carried out: add,
+						   edit or delete
+* @param {object} state - the state object
+*/
 function processComment(action, state) {
 	const {parentId, id} = action.payload
 	let newComments = [...state.comments[parentId]]
