@@ -18,7 +18,7 @@ class CategoryContainer extends Component {
     * @description - trigger a request action
     */
     componentDidMount() {
-        const { categories, isFetching, filterCategories, match, history, fetchData } = this.props
+        const { categories, isFetching, filterCategories, history, fetchData } = this.props
         if (categories.length === 0 && !isFetching) {
             fetchData("categories")
             filterCategories(this.getCategoryFromUrl(history.location.pathname) || "")
@@ -40,7 +40,7 @@ class CategoryContainer extends Component {
 
 
     render() {
-        const { categories, filterCategories, match, activeFilter } = this.props
+        const { categories, filterCategories, activeFilter } = this.props
 
         return (
             <CategoryList categories={categories}

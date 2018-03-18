@@ -61,8 +61,8 @@ class EditPostContainer extends Component {
 
 
     render() {
-        const { categories, openEditPost, isOpen, post, editType, editText, match} = this.props
-        const newType = match.params.postid ? 'Comment' : 'Post'
+        const { categories, openEditPost, isOpen, post, editType, editText} = this.props
+
         return (
             <div>
                 <EditPost isOpen={isOpen}
@@ -70,7 +70,6 @@ class EditPostContainer extends Component {
                           editText={editText}
                           categories={categories}
                           post={post}
-                          // type={`new${newType}`}
                           type={editType}
                           handleSubmit={this.handleSubmit}
                 />

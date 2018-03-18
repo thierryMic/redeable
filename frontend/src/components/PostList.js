@@ -6,7 +6,7 @@ import { Post } from './Post'
 */
 export const PostList = (props) => {
 
-    const { posts, sortPosts, allowSort, vote, del, openEditPost } = props
+    const { posts, vote, del, openEditPost } = props
 
     return (
         <div className='post-list'>
@@ -24,6 +24,4 @@ export const PostList = (props) => {
 
 PostList.propTypes = {
     posts: PropTypes.array.isRequired,
-    allowSort: PropTypes.bool.isRequired,
-    sortPosts: PropTypes.func,
 }

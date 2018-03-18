@@ -115,6 +115,7 @@ export const recSavePost = (payload) => () => ({
 
 export const recNewComment = (payload) => () => ({
 	type: REC_NEW_COMMENT,
+	countChange: 1,
 	payload,
 })
 
@@ -138,6 +139,7 @@ export const reqDeletePost = () => () => ({
 
 export const recDeletePost = (payload) => () => ({
   type: payload.parentId ? REC_DELETE_COMMENT : REC_DELETE_POST,
+  countChange: -1,
   payload
 })
 

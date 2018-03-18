@@ -60,7 +60,6 @@ EditPost.propTypes = {
 }
 
 function getTitle(type) {
-    console.log(type)
     switch(type) {
         case 'newPost' : {
             return 'New post'
@@ -74,6 +73,8 @@ function getTitle(type) {
         case 'editComment' : {
             return 'Edit comment'
         }
-
+        default : {
+            return 'New post'
+        }
     }
 }
